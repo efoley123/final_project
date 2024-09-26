@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- get rid of favicon error -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  </head>
+  <body>
+
+    <h2 class="subtitle is-2">Create Account</h2>
+
+
+    <form action='/newAccount' method='POST'>
+        <p>Please create a login to your account</p>
+        <div class="field"><h5>Username:</h5>
+          <input type='text' name='username' required minlength="1" maxlength="40" size="30">
+      </div>
+        <div class="field"><h5>Password:</h5>
+          <input type='password' name='password' required minlength="1" maxlength="40" size="30">
+        </div>
+        <div class="field"><h5>Retype Password:</h5>
+            <input type='password' name='retypePassword' required minlength="1" maxlength="40" size="30">
+            <!--could perhaps add something which allows you to see what you are typing-->
+      </div>
+        <input class="button is-primary" type='submit'>
+    </form>
+    
+  </body>
