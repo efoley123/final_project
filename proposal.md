@@ -1,5 +1,5 @@
 # Final Project Proposal
-By Eleanor Foley, Laura Pellowski, Ashley Jacobs, Sophia John, Kayla Lem
+By Eleanor Foley, Laura Pellowski, Ashley Jacob, Sophia John, Kayla Lem
 
 ## Outline
 Sometimes people can struggle with achieving their goals and sticking to good habits. For our project, we decided to create a habit tracker, which is intended to be used to help motivate people with determining goals and sticking to routines of their choice.
