@@ -34,7 +34,3 @@ const sendFile = function( response, filename ) {
      response.end( content, 'utf-8' )
    })
 }
-
-
-
-}
