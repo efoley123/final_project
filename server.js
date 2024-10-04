@@ -1,6 +1,28 @@
+require('dotenv').config() //for local development
+const mongoose = require('mongoose')
+const Goal = require('./goalSchema.js')
+const User = require('./userSchema.js')
+
 const http = require('http'),
       fs   = require('fs'),
-      port = 3000
+      port = 3000,
+      uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
+
+mongoose.connect(uri)
+
+async function testDatabase() {
+  const user = new User ({
+    username: "Lauratest",
+    password: "password",
+    goals: null,
+    points: 0,
+    leaderboardNumber: null
+  })
+  await user.save();
+}
+testDatabase();
+
+
 
 const server = http.createServer( function( request,response ) {
   switch( request.url ) {
