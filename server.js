@@ -1,6 +1,42 @@
+require('dotenv').config() //for local development
+const mongoose = require('mongoose')
+const Goal = require('./goalSchema.js')
+const User = require('./userSchema.js')
+
 const http = require('http'),
       fs   = require('fs'),
-      port = 3000
+      port = 3000,
+      uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@webwarefinalproject.3szqw.mongodb.net`
+
+mongoose.connect(uri)
+
+async function testDatabase() {
+  let user = await User.exists({ username: "Lauratest3" })
+  if (user == null) {
+    user = await User.create ({
+      username: "Lauratest3",
+      password: "password",
+      goals: [],
+      points: 0,
+      leaderboardNumber: null
+    })
+  }
+  
+  const goal = await Goal.create ({
+    author: user._id,
+    title: "GOAL",
+    description: "fdsfdsfdsf",
+    dueDate: "2024-10-04",
+    priority: "low",
+    complete: false,
+    active: false
+  })
+
+  await User.findOneAndUpdate( { _id: user._id}, { $push: {goals: goal._id}})
+}
+testDatabase();
+
+
 
 const server = http.createServer( function( request,response ) {
   switch( request.url ) {
