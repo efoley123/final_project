@@ -6,7 +6,7 @@ const User = require('./userSchema.js')
 const http = require('http'),
       fs   = require('fs'),
       port = 3000,
-      uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
+      uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@webwarefinalproject.3szqw.mongodb.net`
 
 mongoose.connect(uri)
 
