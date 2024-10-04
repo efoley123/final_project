@@ -1,4 +1,6 @@
 //global variables
+window.onload = function () 
+{
 var monthEl = $(".c-main");
 var dataCel = $(".c-cal__cel");
 var dateObj = new Date();
@@ -39,9 +41,9 @@ function defaultEvents(dataDay,dataName,dataNotes,classTag){
 }
 
 defaultEvents(today, 'YEAH!','Today is your day','important');
-defaultEvents('2022-12-25', 'MERRY CHRISTMAS','A lot of gift!!!!','festivity');
-defaultEvents('2022-05-04', "LUCA'S BIRTHDAY",'Another gifts...?','birthday');
-defaultEvents('2022-03-03', "MY LADY'S BIRTHDAY",'A lot of money to spent!!!!','birthday');
+defaultEvents('2024-12-25', 'MERRY CHRISTMAS','A lot of gift!!!!','festivity');
+defaultEvents('2024-05-04', "LUCA'S BIRTHDAY",'Another gifts...?','birthday');
+defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY",'A lot of money to spent!!!!','birthday');
 
 
 // ------ functions control -------
@@ -67,6 +69,7 @@ dataCel.each(function() {
 
 //window event creator
 addBtn.on("click", function() {
+  console.log("hi")
   winCreator.addClass("isVisible");
   $("body").addClass("overlay");
   dataCel.each(function() {
@@ -254,3 +257,6 @@ moveNext(indexMonth - 1, false);
 //fill the sidebar with current day
 $(".c-aside__num").text(day);
 $(".c-aside__month").text(monthText[month - 1]);
+
+
+}

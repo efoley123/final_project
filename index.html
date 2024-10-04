@@ -1,57 +1,51 @@
-<script>
-    // fill the month table with column headings
-  function day_title(day_name) {
-      document.write("<div class='c-cal__col'>" + day_name + "</div>");
-    }
-    // fills the month table with numbers
-  function fill_table(month, month_length, indexMonth) {
-      day = 1;
-      // begin the new month table
-      document.write("<div class='c-main c-main-" + indexMonth + "'>");
-      //document.write("<b>"+month+" "+year+"</b>")
-  
-      // column headings
-      document.write("<div class='c-cal__row'>");
-      day_title("Sun");
-      day_title("Mon");
-      day_title("Tue");
-      day_title("Wed");
-      day_title("Thu");
-      day_title("Fri");
-      day_title("Sat");
-      document.write("</div>");
-  
-      // pad cells before first day of month
-      document.write("<div class='c-cal__row'>");
-      for (var i = 1; i < start_day; i++) {
-        if (start_day > 7) {
-        } else {
-          document.write("<div class='c-cal__cel'></div>");
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Calendar</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="a4 project" />
+    <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="calendar.js"></script>
+
+    <script>
+        // fill the month table with column headings
+      function day_title(day_name) {
+          document.write("<div class='c-cal__col'>" + day_name + "</div>");
         }
-      }
-  
-      // fill the first week of days
-      for (var i = start_day; i < 8; i++) {
-        document.write(
-          "<div data-day='2022-" +
-            indexMonth +
-            "-0" +
-            day +
-            "'class='c-cal__cel'><p>" +
-            day +
-            "</p></div>"
-        );
-        day++;
-      }
-      document.write("</div>");
-  
-      // fill the remaining weeks
-      while (day <= month_length) {
-        document.write("<div class='c-cal__row'>");
-        for (var i = 1; i <= 7 && day <= month_length; i++) {
-          if (day >= 1 && day <= 9) {
+        // fills the month table with numbers
+      function fill_table(month, month_length, indexMonth) {
+          day = 1;
+          // begin the new month table
+          document.write("<div class='c-main c-main-" + indexMonth + "'>");
+          //document.write("<b>"+month+" "+year+"</b>")
+      
+          // column headings
+          document.write("<div class='c-cal__row'>");
+          day_title("Sun");
+          day_title("Mon");
+          day_title("Tue");
+          day_title("Wed");
+          day_title("Thu");
+          day_title("Fri");
+          day_title("Sat");
+          document.write("</div>");
+      
+          // pad cells before first day of month
+          document.write("<div class='c-cal__row'>");
+          for (var i = 1; i < start_day; i++) {
+            if (start_day > 7) {
+            } else {
+              document.write("<div class='c-cal__cel'></div>");
+            }
+          }
+      
+          // fill the first week of days
+          for (var i = start_day; i < 8; i++) {
             document.write(
-              "<div data-day='2022-" +
+              "<div data-day='2024-" +
                 indexMonth +
                 "-0" +
                 day +
@@ -60,27 +54,49 @@
                 "</p></div>"
             );
             day++;
-          } else {
-            document.write(
-              "<div data-day='2022-" +
-                indexMonth +
-                "-" +
-                day +
-                "' class='c-cal__cel'><p>" +
-                day +
-                "</p></div>"
-            );
-            day++;
           }
+          document.write("</div>");
+      
+          // fill the remaining weeks
+          while (day <= month_length) {
+            document.write("<div class='c-cal__row'>");
+            for (var i = 1; i <= 7 && day <= month_length; i++) {
+              if (day >= 1 && day <= 9) {
+                document.write(
+                  "<div data-day='2024-" +
+                    indexMonth +
+                    "-0" +
+                    day +
+                    "'class='c-cal__cel'><p>" +
+                    day +
+                    "</p></div>"
+                );
+                day++;
+              } else {
+                document.write(
+                  "<div data-day='2024-" +
+                    indexMonth +
+                    "-" +
+                    day +
+                    "' class='c-cal__cel'><p>" +
+                    day +
+                    "</p></div>"
+                );
+                day++;
+              }
+            }
+            document.write("</div>");
+            // the first day of the next month
+            start_day = i;
+          }
+      
+          document.write("</div>");
         }
-        document.write("</div>");
-        // the first day of the next month
-        start_day = i;
-      }
-  
-      document.write("</div>");
-    }
-  </script>
+      </script>
+    
+  </head>
+
+  <body>
   <header>
     <div class="wrapper">
       <div class="c-monthyear">
@@ -102,7 +118,7 @@
           </div>
           <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
         </div>
-        <span class="c-paginator__year">2022</span>
+        <span class="c-paginator__year">2024</span>
       </div>
       <div class="c-sort">
         <a class="o-btn c-today__btn" href="javascript:;">TODAY</a>
@@ -123,7 +139,7 @@
         <script>
         
         // CAHNGE the below variable to the CURRENT YEAR
-        year = 2022;
+        year = 2024;
   
         // first day of the week of the new year
         today = new Date("January 1, " + year);
@@ -161,3 +177,5 @@
       <a href="javascript:;" class="o-btn js-event__save">SAVE <span class="fa fa-save"></span></a>
     </div>
   </div>
+</body>
+</html>
