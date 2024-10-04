@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    goals: [Number],
+    goals: [mongoose.SchemaTypes.ObjectId],
     points: Number,
     leaderboardNumber: Number
 });

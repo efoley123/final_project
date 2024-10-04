@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const goalSchema = new mongoose.Schema({
+    author: mongoose.SchemaTypes.ObjectId,
     title: String,
     description: String,
     dueDate: Date,
