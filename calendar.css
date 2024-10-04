@@ -63,8 +63,8 @@ body.overlay:before {
 }
 html {
   height: 100%;
-  background: #003567;
-  color: #ffffff;
+  background: #6c4b38;
+  color: #000000;
   font-size: 13px;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
@@ -117,7 +117,7 @@ header {
   height: 80px;
   width: 100%;
   z-index: 50;
-  background: #003567;
+  background: #dbffbe;
 }
 header > .wrapper {
   display: flex;
@@ -127,12 +127,12 @@ header > .wrapper {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  color: #ffffff;
+  color: #000000;
   letter-spacing: 2px;
   font-size: 13px;
 }
 header > .wrapper a {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   margin-left: 20px/2;
 }
@@ -204,7 +204,7 @@ header > .wrapper a {
   width: 30px;
   height: 30px;
   padding: 9px 12px;
-  background-color: #004b8f;
+  background-color: #ffcddf;
   cursor: pointer;
   z-index: 10;
   box-sizing: border-box;
@@ -232,14 +232,14 @@ header > .wrapper a {
 }
 .c-month .prev:hover {
   padding: 9px 10px;
-  background-color: #0055a4;
+  background-color: #e1fffe;
 }
 .c-month .next {
   right: 0;
 }
 .c-month .next:hover {
   padding: 9px 14px;
-  background-color: #0055a4;
+  background-color: #e1fffe;
 }
 .c-paginator__year {
   height: 80px;
@@ -251,7 +251,7 @@ header > .wrapper a {
   padding: 0 10px;
   line-height: 30px;
   height: 30px;
-  background-color: #004b8f;
+  background-color: #ffcddf;
   text-transform: uppercase;
   letter-spacing: 2px;
   border-radius: 30px/2;
@@ -271,7 +271,7 @@ header > .wrapper a {
   margin-left: 10px;
 }
 .o-btn:hover {
-  background-color: #0055a4;
+  background-color: #e1fffe;
 }
 .c-calendar {
   padding-top: 80px;
@@ -280,7 +280,7 @@ header > .wrapper a {
   flex-direction: row;
 }
 .c-calendar__style {
-  background-color: #00407b;
+  background-color: #dbffbe;
   margin: 20px;
   padding: 20px/2;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.18);
@@ -373,7 +373,7 @@ header > .wrapper a {
   width: 40px;
   height: 40px;
   line-height: 40px;
-  background: #004585;
+  background: #ffcddf;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   border-radius: 50%;
@@ -387,22 +387,22 @@ header > .wrapper a {
   padding-top: 100%;
 }
 .c-cal__cel:nth-child(1) p {
-  background: rgba(215, 16, 15, 0.2);
+  background: #ffcddf;
 }
 .c-cal__cel:nth-child(7) p {
-  background: #003b71;
+  background: #ffcddf;
 }
 .c-cal__cel:hover {
-  background-color: #004b8f !important;
+  background-color: #e1fffe !important;
 }
 .c-cal__cel:hover p {
-  background: #003b71 !important;
+  background: #e1fffe !important;
 }
 .c-cal__cel.isSelected {
-  background-color: #004b8f;
+  background-color: #ffcddf;
 }
 .c-cal__cel.isSelected p {
-  background: #003b71;
+  background: #ffcddf;
 }
 .c-cal__cel.isToday {
   background-color: rgba(245, 113, 112, 0.2);
@@ -413,7 +413,7 @@ header > .wrapper a {
 .c-cal__cel.other_month {
   color: rgba(255, 255, 255, 0.2);
 }
-.event:before {
+.task:before {
   position: absolute;
   content: '';
   display: block;
@@ -429,13 +429,13 @@ header > .wrapper a {
   transform: translate(-50%, calc(50% + 20px/2));
   -webkit-transform: translate(-50%, calc(50% + 20px/2));
 }
-.event--birthday:before {
+.task--birthday:before {
   background-color: #FACC2E;
 }
-.event--festivity:before {
+.task--festivity:before {
   background-color: #10DDC2;
 }
-.event--important:before {
+.task--important:before {
   background-color: #F57170;
 }
 .c-aside {
@@ -450,12 +450,12 @@ header > .wrapper a {
   font-family: 'Lato', sans-serif;
   font-weight: 900;
 }
-.c-aside__event {
+.c-aside__task {
   position: relative;
   padding-left: 20px;
   margin: 20px 0;
 }
-.c-aside__event:before {
+.c-aside__task:before {
   position: absolute;
   display: block;
   content: '';
@@ -466,16 +466,16 @@ header > .wrapper a {
   border-radius: 50%;
   -webkit-border-radius: 50%;
 }
-.c-aside__event--birthday:before {
+.c-aside__task--birthday:before {
   background-color: #FACC2E;
 }
-.c-aside__event--festivity:before {
+.c-aside__task--festivity:before {
   background-color: #10DDC2;
 }
-.c-aside__event--important:before {
+.c-aside__task--important:before {
   background-color: #F57170;
 }
-.c-event__creator {
+.c-task__creator {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -495,21 +495,21 @@ header > .wrapper a {
   transform: translate(-50%, -50%) scale(0.9);
   -webkit-transform: translate(-50%, -50%) scale(0.9);
 }
-.c-event__creator.long {
+.c-task__creator.long {
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.c-event__creator.elastic {
+.c-task__creator.elastic {
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -webkit-transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.c-event__creator form {
+.c-task__creator form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
 }
-.c-event__creator.isVisible {
+.c-task__creator.isVisible {
   transform: translate(-50%, -50%) scale(1);
   -webkit-transform: translate(-50%, -50%) scale(1);
   opacity: 1;

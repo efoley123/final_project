@@ -1,4 +1,7 @@
 //global variables
+
+//EVENT = TASK
+//
 window.onload = function () 
 {
 var monthEl = $(".c-main");
@@ -23,23 +26,23 @@ var monthText = [
 ];
 var indexMonth = month;
 var todayBtn = $(".c-today__btn");
-var addBtn = $(".js-event__add");
-var saveBtn = $(".js-event__save");
-var closeBtn = $(".js-event__close");
-var winCreator = $(".js-event__creator");
+var addBtn = $(".js-task__add");
+var saveBtn = $(".js-task__save");
+var closeBtn = $(".js-task__close");
+var winCreator = $(".js-task__creator");
 var inputDate = $(this).data();
 today = year + "-" + month + "-" + day;
 
 
-// ------ set default events -------
+// ------ set default task -------
 function defaultEvents(dataDay,dataName,dataNotes,classTag){
   var date = $('*[data-day='+dataDay+']');
   date.attr("data-name", dataName);
   date.attr("data-notes", dataNotes);
-  date.addClass("event");
-  date.addClass("event--" + classTag);
+  date.addClass("task");
+  date.addClass("task--" + classTag);
 }
-
+//CHANGE THIS FROM EVENTS TO TASKS
 defaultEvents(today, 'YEAH!','Today is your day','important');
 defaultEvents('2024-12-25', 'MERRY CHRISTMAS','A lot of gift!!!!','festivity');
 defaultEvents('2024-05-04', "LUCA'S BIRTHDAY",'Another gifts...?','birthday');
@@ -69,7 +72,6 @@ dataCel.each(function() {
 
 //window event creator
 addBtn.on("click", function() {
-  console.log("hi")
   winCreator.addClass("isVisible");
   $("body").addClass("overlay");
   dataCel.each(function() {
@@ -101,9 +103,9 @@ saveBtn.on("click", function() {
       if (inputNotes != null) {
         $(this).attr("data-notes", inputNotes);
       }
-      $(this).addClass("event");
+      $(this).addClass("task");
       if (inputTag != null) {
-        $(this).addClass("event--" + inputTag);
+        $(this).addClass("task--" + inputTag);
       }
       fillEventSidebar($(this));
     }
@@ -111,23 +113,24 @@ saveBtn.on("click", function() {
 
   winCreator.removeClass("isVisible");
   $("body").removeClass("overlay");
-  $("#addEvent")[0].reset();
+  $("#addTask")[0].reset();
 });
 
 //fill sidebar event info
 function fillEventSidebar(self) {
-  $(".c-aside__event").remove();
-  var thisName = self.attr("data-name");
-  var thisNotes = self.attr("data-notes");
-  var thisImportant = self.hasClass("event--important");
-  var thisBirthday = self.hasClass("event--birthday");
-  var thisFestivity = self.hasClass("event--festivity");
-  var thisEvent = self.hasClass("event");
+  $(".c-aside__task").remove();
+  // var thisName = self.attr("data-name");
+  // var thisNotes = self.attr("data-notes");
+  var thisTaskCompleted = self.hasClass("task--completed");
+  // var thisImportant = self.hasClass("task--important");
+  // var thisBirthday = self.hasClass("task--birthday");
+  // var thisFestivity = self.hasClass("task--festivity");
+  var thisTask = self.hasClass("task");
   
   switch (true) {
-    case thisImportant:
-      $(".c-aside__eventList").append(
-        "<p class='c-aside__event c-aside__event--important'>" +
+    case this:
+      $(".c-aside__taskList").append(
+        "<p class='c-aside__task c-aside__task--important'>" +
         thisName +
         " <span> • " +
         thisNotes +
@@ -135,8 +138,8 @@ function fillEventSidebar(self) {
       );
       break;
     case thisBirthday:
-      $(".c-aside__eventList").append(
-        "<p class='c-aside__event c-aside__event--birthday'>" +
+      $(".c-aside__taskList").append(
+        "<p class='c-aside__task c-aside__task--birthday'>" +
         thisName +
         " <span> • " +
         thisNotes +
@@ -144,17 +147,17 @@ function fillEventSidebar(self) {
       );
       break;
     case thisFestivity:
-      $(".c-aside__eventList").append(
-        "<p class='c-aside__event c-aside__event--festivity'>" +
+      $(".c-aside__taskList").append(
+        "<p class='c-aside__task c-aside__task--festivity'>" +
         thisName +
         " <span> • " +
         thisNotes +
         "</span></p>"
       );
       break;
-    case thisEvent:
-      $(".c-aside__eventList").append(
-        "<p class='c-aside__event'>" +
+    case thisTask:
+      $(".c-aside__taskList").append(
+        "<p class='c-aside__task'>" +
         thisName +
         " <span> • " +
         thisNotes +

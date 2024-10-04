@@ -128,11 +128,11 @@
   <div class="wrapper">
     <div class="c-calendar">
       <div class="c-calendar__style c-aside">
-        <a class="c-add o-btn js-event__add" href="javascript:;">add event <span class="fa fa-plus"></span></a>
+        <a class="c-add o-btn js-task__add" href="javascript:;">edit goal <span class="fa fa-plus"></span></a>
         <div class="c-aside__day">
           <span class="c-aside__num"></span> <span class="c-aside__month"></span>
         </div>
-        <div class="c-aside__eventList">
+        <div class="c-aside__taskList">
         </div>
       </div>
       <div class="c-cal__container c-calendar__style">
@@ -160,21 +160,15 @@
       </div>
     </div>
   
-    <div class="c-event__creator c-calendar__style js-event__creator">
-      <a href="javascript:;" class="o-btn js-event__close">CLOSE <span class="fa fa-close"></span></a>
-      <form id="addEvent">
-        <input placeholder="Event name" type="text" name="name">
-        <input type="date" name="date">
-        <textarea placeholder="Notes" name="notes" cols="30" rows="10"></textarea>
-        <select name="tags">
-            <option value="event">event</option>
-            <option value="important">important</option>
-            <option value="birthday">birthday</option>
-            <option value="festivity">festivity</option>
-          </select>
+    <div class="c-task__creator c-calendar__style js-task__creator">
+      <a href="javascript:;" class="o-btn js-task__close">CLOSE <span class="fa fa-close"></span></a>
+      <form id="addTask">
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1"> I have a bike</label><br>
+        // takes in all the goals for that day and then prints it into a list 
       </form>
       <br>
-      <a href="javascript:;" class="o-btn js-event__save">SAVE <span class="fa fa-save"></span></a>
+      <a href="javascript:;" class="o-btn js-task__save">SAVE <span class="fa fa-save"></span></a>
     </div>
   </div>
 </body>
