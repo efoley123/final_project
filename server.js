@@ -163,6 +163,11 @@ app.post( '/newAccount', async (req,res)=> {
 })
 
 
+app.post( '/logout', (req,res)=> {
+  res.redirect( 'login.html' )
+  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
+ })
+
 app.post( '/login', async (req,res)=> {
 
 
