@@ -11,25 +11,23 @@ const http = require('http'),
 mongoose.connect(uri)
 
 async function testDatabase() {
-  //let user = await User.exists({ username: "Lauratest3" })
-  //if (user == null) {
+  let user = await User.exists({ username: "Lauratest3" })
+  if (user == null) {
     const user = await User.create ({
       username: "Lauratest4",
       password: "password",
     })
-  //}
+  }
   
-  // const goal = await Goal.create ({
-  //   author: user._id,
-  //   title: "GOAL",
-  //   description: "fdsfdsfdsf",
-  //   dueDate: "2024-10-04",
-  //   priority: "low",
-  //   complete: false,
-  //   active: false
-  // })
+  const goal = await Goal.create ({
+    author: user._id,
+    title: "GOAL",
+    description: "fdsfdsfdsf",
+    days: ["2024-10-04", "2024-10-05"],
+    priority: "low"
+  })
 
-  // await User.findOneAndUpdate( { _id: user._id}, { $push: {goals: goal._id}})
+  await User.findOneAndUpdate( { _id: user._id}, { $push: {goals: goal._id}})
 }
 testDatabase();
 

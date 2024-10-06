@@ -10,15 +10,14 @@ const goalSchema = new mongoose.Schema({
         default: "My Goal",
     },
     description: String,
-    dueDate: Date,
-    priority: String,
-    complete: {
-        type: Boolean,
-        default: false,
+    days: {
+        type: [Date],
+        default:[],
     },
-    active: {
-        type: Boolean,
-        default: false
+    priority: String,
+    completed: {
+        type: [Date],
+        default: [],
     }
 });
 
