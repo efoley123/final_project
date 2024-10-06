@@ -1,4 +1,29 @@
-require('dotenv').config() //for local development
+
+/*
+async function testDatabase() {
+  let user = await User.exists({ username: "Lauratest3" })
+  if (user == null) {
+    const user = await User.create ({
+      username: "Lauratest4",
+      password: "password",
+    })
+  }
+  
+  const goal = await Goal.create ({
+    author: user._id,
+    title: "GOAL",
+    description: "fdsfdsfdsf",
+    days: ["2024-10-04", "2024-10-05"],
+    priority: "low"
+  })
+
+  await User.findOneAndUpdate( { _id: user._id}, { $push: {goals: goal._id}})
+}
+testDatabase();
+
+}*/
+
+require('dotenv').config(); //for local development
 const mongoose = require('mongoose')
 const Goal = require('./goalSchema.js')
 const User = require('./userSchema.js')
