@@ -13,12 +13,9 @@ mongoose.connect(uri)
 async function testDatabase() {
   let user = await User.exists({ username: "Lauratest3" })
   if (user == null) {
-    user = await User.create ({
-      username: "Lauratest3",
+    const user = await User.create ({
+      username: "Lauratest4",
       password: "password",
-      goals: [],
-      points: 0,
-      leaderboardNumber: null
     })
   }
   
@@ -26,10 +23,8 @@ async function testDatabase() {
     author: user._id,
     title: "GOAL",
     description: "fdsfdsfdsf",
-    dueDate: "2024-10-04",
-    priority: "low",
-    complete: false,
-    active: false
+    days: ["2024-10-04", "2024-10-05"],
+    priority: "low"
   })
 
   await User.findOneAndUpdate( { _id: user._id}, { $push: {goals: goal._id}})
