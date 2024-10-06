@@ -1,4 +1,4 @@
-require('dotenv').config() //for local development
+require('dotenv').config(); //for local development
 const mongoose = require('mongoose')
 const Goal = require('./goalSchema.js')
 const User = require('./userSchema.js')
@@ -6,7 +6,9 @@ const User = require('./userSchema.js')
 const http = require('http'),
       fs   = require('fs'),
       port = 3000,
-      uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@webwarefinalproject.3szqw.mongodb.net`
+      uri = `mongodb+srv://${process.env.MYUSER}:${process.env.PASS}@webwarefinalproject.3szqw.mongodb.net`
+
+
 
 mongoose.connect(uri)
 
