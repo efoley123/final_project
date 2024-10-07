@@ -25,7 +25,7 @@ const display = async function( event ) {
       let row = document.createElement('tr');
 
       for (const key in text[i]) {
-        if (key!=="_id" ||key!=="password" ||key!=="goals" ||key!=="leaderboardNumber" || key!=="__v") {
+        if (key!=="_id") {
         let cell = document.createElement('td');
         cell.textContent = text[i][key]; // Set the content of the cell
         row.appendChild(cell);
