@@ -123,6 +123,8 @@ app.post( '/createAccount', (req,res)=> {
  res.redirect( 'signup.html' )
 })
 
+
+//getting all goals
 app.get('/goals', async (req, res) => {
   
   if (!req.session.login) {
