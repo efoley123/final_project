@@ -2,6 +2,8 @@ require('dotenv').config(); //for local development
 const mongoose = require('mongoose')
 const Goal = require('./goalSchema.js')
 const User = require('./userSchema.js')
+let currUser = null
+let id = null
 
 
 const express = require("express"),
@@ -139,7 +141,7 @@ app.get('/goals', async (req, res) => {
 
 app.post( '/newAccount', async (req,res)=> {
 
-  console.log(req.body);
+  // console.log(req.body);
 
   if (req.body.password!=="" && req.body.username!=="" && req.body.password===req.body.retypePassword) {
 
@@ -180,6 +182,8 @@ app.post( '/newAccount', async (req,res)=> {
 
 
 app.post( '/logout', (req,res)=> {
+  currUser = null;
+  id = null
   res.redirect( 'login.html' )
   //would also rechange a global variable if we start saving a global variable which knows what user is logged in
  })
@@ -187,15 +191,17 @@ app.post( '/logout', (req,res)=> {
 app.post( '/login', async (req,res)=> {
 
 
- console.log( req.body )
+//  console.log( req.body )
 
 
  const docs = await userCollection.find({}).toArray()
  let loginSuccessful = 0;
+ let userId = null
  for (i=0;i<docs.length;i++) {
      if (req.body.password ===docs[i].password && req.body.username ===docs[i].username) {
          loginSuccessful = 1;
-         console.log(req.body.username)
+         userId = docs[i]._id;
+        //  console.log(req.body.username)
          collectionName = req.body.username;
          collection = await client.db("users").collection(req.body.username);
      }
@@ -203,6 +209,16 @@ app.post( '/login', async (req,res)=> {
 
 
 if(loginSuccessful) {
+  currUser = req.body.username
+  id = userId
+  console.log(id)
+
+
+  // const user = await collection.findOne({ username: currUser }, { projection: { _id: 1 } });
+  // id = currUser._id
+  // console.log(id)
+
+
  req.session.login = true
  res.redirect( 'main.html' )
 }else{
@@ -277,6 +293,48 @@ app.get("/lbdisplay", async (req, res) => {
       res.end(JSON.stringify(top10))
   }
 })
+
+
+
+// app.get('/goalsLoad', async (req, res) => {
+//   const collectionD = await client.db("test").collection("users");
+//   const account = await collectionD.findOne({username: currUser});
+//   if (account.goals) {
+//     res.json(account.goals); 
+//   } else {
+//     res.json([]); 
+//   }
+//   console.log(account.goals);
+//   //this also needs to be dependent on the days but rn im not doing that!!!
+// })
+
+
+
+//TEST THIS
+app.get('/goalsLoad', async (req, res) => {
+  const goalsCollection = await client.db("test").collection("goals");
+  const account = await goalsCollection.find({author: id}).toArray();
+  console.log(account)
+  if (account.length > 0) {
+    const titles = account.map(goal => goal.title);
+    // const days = account.map(goal => goal.days);
+    // const arr = [titles, days]; 
+    console.log(titles)
+    // res.json(arr); 
+} else {
+    res.json([[], []]); // Return empty arrays if no account is found
+}
+})
+
+
+
+// app.post('/updateGoals', async (req, res) =>)
+// {
+//   //for loop
+//   //sees if there is a goal for that day 
+//   //if yes updates accordingly
+//   //else adds to the database
+// }
 
 
 
