@@ -81,15 +81,9 @@
                 <th>Delete</th>
                 <th>Modify</th>
             </tr>
+
         </thead>
-        <tbody>
-            <tr>
-                <td>Exercise</td>
-                <td>Monday, Wednesday, Friday</td>
-                <td>Cardio and strength training</td>
-                <td><button>Delete</button></td>
-                <td><button>Modify</button></td>
-            </tr>
+        <tbody id="goalTableBody"> 
         </tbody>
     </table>
     <div class="button-container">
@@ -151,23 +145,77 @@
         const cancelButtonGoal = document.getElementById('cancelButtonGoal');
         const popupOverlayGoal = document.getElementById('popupOverlayCreateGoal');
         const popupCreateGoal = document.getElementById('popupCreateGoal');
+        const goalTableBody = document.getElementById('goalTableBody');
 
         createGoalButton.addEventListener('click', () => {
-            popupOverlayGoal.style.display = 'flex'; // Show the overlay
-            popupCreateGoal.style.display = 'block'; // Show the popup
+            popupOverlayGoal.style.display = 'flex'; 
+            popupCreateGoal.style.display = 'block'; 
         });
 
         // Close the popup when the Save button is clicked
         saveButtonGoal.addEventListener('click', () => {
-            popupOverlayGoal.style.display = 'none'; // Hide the overlay
-            popupCreateGoal.style.display = 'none'; // Hide the popup
+
+            const title = document.getElementById('popupGoal').value;
+            const description = document.getElementById('goalDescription').value;
+            const days = Array.from(document.querySelectorAll('input[name="days"]:checked')).map(el => el.value);
+
+            const newGoal = {
+                title,
+                description,
+                days
+            };
+
+            addGoal(newGoal);
+            popupOverlayGoal.style.display = 'none'; 
+            popupCreateGoal.style.display = 'none'; 
         });
 
         // Close the popup when the Cancel button is clicked
         cancelButtonGoal.addEventListener('click', () => {
-            popupOverlayGoal.style.display = 'none'; // Hide the overlay
-            popupCreateGoal.style.display = 'none'; // Hide the popup
+            popupOverlayGoal.style.display = 'none'; 
+            popupCreateGoal.style.display = 'none'; 
         });
+
+        async function addGoal(newGoal){
+
+            const body = JSON.stringify(newGoal);
+            const response = await fetch('/addGoal', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body
+            });
+
+            const allGoals = await response.json();
+            populateTable(allGoals);
+        }
+
+        async function fetchGoals() {
+            const response = await fetch('/allGoals', {
+                method: 'GET'});
+
+            const goals = await response.json();
+            populateTable(goals);
+            
+        }
+
+        function populateTable(goals) {
+            goalTableBody.innerHTML = ''; // Clear existing rows
+            goals.forEach(goal => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${goal.title}</td>
+                    <td>${goal.days.join(', ')}</td>
+                    <td>${goal.description}</td>
+                    <td><button onclick="deleteGoal(${goal.id})">Delete</button></td>
+                    <td><button onclick="modifyGoal(${goal.id})">Modify</button></td>
+                `;
+                goalTableBody.appendChild(row);
+            });
+        }
+
+        window.onload = fetchGoals;
     </script>
 </body>
 </html>

@@ -21,7 +21,6 @@ const http = require('http'),
 const client = new MongoClient( uri )
 const db = client.db("test")
 let userCollection = null
-let goalsCollection = null
 let collection = null
 
 
@@ -48,7 +47,6 @@ async function run() {
   //my database here collecction variable
   collection = await client.db("test").collection("namey") //default cause otherwise get 503 error  in app.use
   userCollection = await client.db("test").collection("users")
-  goalsCollection = await client.db("test").collection("goals")
 
 
 
@@ -326,6 +324,45 @@ app.get('/goalsLoad', async (req, res) => {
 }
 })
 
+
+app.get('/allGoals', async (req, res) => {
+  const everyoneGoalsCollection = await client.db("test").collection("goals");
+  const currentAccountGoals = await everyoneGoalsCollection.find({author: id}).toArray();
+  console.log("current goals", currentAccountGoals);
+  if (currentAccountGoals.length > 0) {
+    //const titles = currentAccountGoals.map(goal => goal.title); 
+    //console.log(titles)
+    res.json(currentAccountGoals); 
+  } else {
+    res.json([]); 
+  }
+})
+
+app.post('/addGoal', async(req, res) =>{
+  const newGoal = req.body;
+
+  newGoalData = {
+    author: id,
+    title: newGoal.title,
+    description: newGoal.description,
+    days: newGoal.days,
+    completed: []
+  }
+
+  const everyoneGoalsCollection = await client.db("test").collection("goals");
+  const result = await everyoneGoalsCollection.insertOne(newGoalData)
+
+  
+  const currentAccountGoals = await everyoneGoalsCollection.find({author: id}).toArray();
+  console.log("current goals", currentAccountGoals);
+  if (currentAccountGoals.length > 0) {
+    res.json(currentAccountGoals); 
+  } else {
+    res.json([]); 
+  }
+
+
+})
 
 
 // app.post('/updateGoals', async (req, res) =>)
