@@ -128,7 +128,9 @@
   <div class="wrapper">
     <div class="c-calendar">
       <div class="c-calendar__style c-aside">
-        <a class="c-add o-btn js-task__add" href="javascript:;">edit goal <span class="fa fa-plus"></span></a>
+        <form id="goalsForm" action='/goalsLoad' method='GET'>
+        <a class="c-add o-btn js-task__add" href="javascript:;" onclick="loadGoals()">edit goal <span class="fa fa-plus"></span></a>
+        </form>
         <div class="c-aside__day">
           <span class="c-aside__num"></span> <span class="c-aside__month"></span>
         </div>
@@ -162,13 +164,34 @@
   
     <div class="c-task__creator c-calendar__style js-task__creator">
       <a href="javascript:;" class="o-btn js-task__close">CLOSE <span class="fa fa-close"></span></a>
-      <form id="addTask">
-        <label>
-          <input type="checkbox" id="task-done"> Drink water
-        </label>
-      </form>
+      <form id="addTask"> </form>
       <a href="javascript:;" class="o-btn js-task__save">SAVE <span class="fa fa-save"></span></a>
     </div>
   </div>
+
+
+  <script>
+    // Shows all current goals of the user that they need to complete that day
+    function loadGoals() {
+      fetch('/goalsLoad')
+        .then(response => response.json())
+        .then(goals => {
+          const taskListContainer = document.getElementById('addTask');
+          taskListContainer.innerHTML = ''; 
+          if (goals.length > 0) {
+            goals.forEach(goal => {
+              const goalItem = document.createElement('label');
+              goalItem.innerHTML = `<input type="checkbox" name="goal" /> ${goal.title || goal}`;
+              taskListContainer.appendChild(goalItem);
+            });
+          } else {
+            taskListContainer.innerHTML = '<p>User does not have any goals to complete.</p>';
+          }
+        })
+        .catch(error => {
+          console.error('Error loading goals:', error);
+        });
+    }
+  </script>
 </body>
 </html>
