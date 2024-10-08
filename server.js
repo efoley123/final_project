@@ -328,7 +328,6 @@ app.get('/goalsLoad', async (req, res) => {
 app.get('/allGoals', async (req, res) => {
   const everyoneGoalsCollection = await client.db("test").collection("goals");
   const currentAccountGoals = await everyoneGoalsCollection.find({author: id}).toArray();
-  console.log("current goals", currentAccountGoals);
   if (currentAccountGoals.length > 0) {
     //const titles = currentAccountGoals.map(goal => goal.title); 
     //console.log(titles)
@@ -337,6 +336,23 @@ app.get('/allGoals', async (req, res) => {
     res.json([]); 
   }
 })
+
+app.delete('/deleteGoal/:id', async (req, res) => {
+  const goalId = req.params.id;
+
+  const everyoneGoalsCollection = await client.db("test").collection("goals");
+      
+  const result = await everyoneGoalsCollection.deleteOne({ _id: new ObjectId(goalId) });
+
+  const currentAccountGoals = await everyoneGoalsCollection.find({author: id}).toArray();
+  if (currentAccountGoals.length > 0) {
+    res.json(currentAccountGoals); 
+  } else {
+    res.json([]); 
+  }
+  
+});
+
 
 app.post('/addGoal', async(req, res) =>{
   const newGoal = req.body;
@@ -354,7 +370,6 @@ app.post('/addGoal', async(req, res) =>{
 
   
   const currentAccountGoals = await everyoneGoalsCollection.find({author: id}).toArray();
-  console.log("current goals", currentAccountGoals);
   if (currentAccountGoals.length > 0) {
     res.json(currentAccountGoals); 
   } else {

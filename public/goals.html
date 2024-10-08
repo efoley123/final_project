@@ -200,6 +200,21 @@
             
         }
 
+        async function deleteGoal(goalId) {        
+            const response = await fetch(`/deleteGoal/${goalId}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete goal');
+            }
+
+            const allGoalsAfterDelete = await response.json();
+            populateTable(allGoalsAfterDelete);
+    
+        }
+
+
         function populateTable(goals) {
             goalTableBody.innerHTML = ''; // Clear existing rows
             goals.forEach(goal => {
@@ -208,8 +223,8 @@
                     <td>${goal.title}</td>
                     <td>${goal.days.join(', ')}</td>
                     <td>${goal.description}</td>
-                    <td><button onclick="deleteGoal(${goal.id})">Delete</button></td>
-                    <td><button onclick="modifyGoal(${goal.id})">Modify</button></td>
+                    <td><button onclick="deleteGoal('${goal._id}')">Delete</button></td>
+                    <td><button onclick="modifyGoal(${goal._id})">Modify</button></td>
                 `;
                 goalTableBody.appendChild(row);
             });
