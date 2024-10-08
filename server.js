@@ -202,6 +202,63 @@ app.get( '/', (req,res) => { //
   //res.render( 'login', { msg:'', layout:false })
 })
 
+app.post( '/home', (req,res)=> {
+  res.redirect( 'main.html' )
+  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
+ })
+
+app.post( '/leaderboard', (req,res)=> {
+  res.redirect( 'leaderboard.html' )
+  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
+ })
+
+// route to get all docs
+app.get("/lbdisplay", async (req, res) => {
+  if (userCollection !== null) {//this returns the whole thing
+    const docs = await userCollection.find({}).toArray()// find allows you to pass something in, if blank returns everything inside collection and return results as array
+    //now I need to see which ones have the most points max is 10
+    let arrayPoints = [];
+    let arrayUsername = [];
+    let top10 = [];
+
+    for (let i=0;i<docs.length;i++) {
+      //row
+      let rowPoints = docs[i].points;
+      let rowUser = docs[i].username;
+      arrayPoints.push(rowPoints); //this will push all of the points in the user
+      arrayUsername.push(rowUser);
+    }
+    //get the top 10
+    let max = 10;
+    if (docs.length>10) {
+      max = docs.length;
+    }
+    for (let i =0;i<max;i++) {
+      let highest = -1;
+      let index = 0;
+      for (let j =0;j<arrayPoints.length;j++) {
+        if (highest>arrayPoints[j]) {
+          highest = arrayPoints[j];
+          index = j;
+        }
+      }
+      let top10account = {
+        username:arrayUsername[index],
+        points:arrayPoints[index],
+      }
+      top10.push(top10account);
+      arrayPoints.splice(index, 1);
+      arrayUsername.splice(index, 1);
+      }
+    console.log(top10);
+    console.log(JSON.stringify(top10))
+    res.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      res.end(JSON.stringify(top10))
+  }
+})
+
+
+
 run()
 
 app.listen( process.env.PORT || port )
