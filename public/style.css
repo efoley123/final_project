@@ -1,9 +1,23 @@
+h2 {
+  width: 300px;
+  margin:auto;
+  padding: 15px;
+  border: 5px solid #6C4B38;
+  border-radius: 20%;
+  background-color: #E1FFFE;
+  color: #000000;
+}
+
 body {
     align-items: center;
     text-align: center;
     font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
     margin: 2em;
-    background-color:#E1FFFE;
+    background-color: #FFCDDF;
+    background: repeating-linear-gradient(90deg, #FFCDDF,
+    #FFCDDF 30px,
+    #6C4B38 30px,
+    #6C4B38 60px );
     color:black;
   }
 
@@ -12,11 +26,12 @@ body {
     margin:auto;
     padding: 20px;
     border: 5px solid #6C4B38;
-    background-color: #FFCDDF;
+    border-radius: 10%;
+    background-color: #E1FFFE;
   }
 
   .button {
-    background-color: #DBFFBE;
+    background-color: #FFCDDF;
     border-radius: 15px;
     color: black;
     padding: 10px 20px;
