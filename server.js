@@ -207,10 +207,14 @@ app.post( '/home', (req,res)=> {
   //would also rechange a global variable if we start saving a global variable which knows what user is logged in
  })
 
+app.post( '/mypetpage', (req,res)=> {
+  res.redirect( 'mypet.html' )
+  })
+
+
 app.post( '/leaderboard', (req,res)=> {
   res.redirect( 'leaderboard.html' )
-  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
- })
+})
 
 // route to get all docs
 app.get("/lbdisplay", async (req, res) => {
