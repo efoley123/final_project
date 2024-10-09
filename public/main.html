@@ -1,33 +1,49 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <title>CS4241 Final Project</title>
     <meta charset="utf-8">
     <!-- get rid of favicon error -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link rel="stylesheet" type="text/css" href="mainstyle.css">
-  </head>
-  <body>
-    <header>CS4241 Final Project</header>
-    <h2>Habit Tracker</h2>
-    <div class="box" style="text-align: center;">
+    <script src="main.js"></script>
 
     <form action='/logout' method='POST'>
-      <button class="button is-primary" type = 'submit'>Log Out</button>
+      <button class="button1 is-primary" type = 'submit'>Log Out</button>
     </form>
 
-    <p>Points at the top</p>
+  </head>
 
-    <p>Habit List (cause we ask for your habits which you can input)</p>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+  </div>
 
-    <p>Goal List (cause we ask for your habits which you can input)</p>
 
-    <p>Cute Pet you can take care of? Potentially idk how it would look</p>
+  <button onclick="openNav()">Open Navigation</button>
+
+  <body>
+    <header>CS4241 Final Project
+      Habit Tracker
+    </header>
+    <div class="box" style="text-align: center;">
+
+    <box>
+      <p>EXP: *insert function result here*</p>
+    </box>
+
+    <p>Goals
+      *insert table here with complete/incomplete column that can be checked/unchecked?*
+    </p>
 
     <p>Link to seperate html page where you can buy certain store items with your points</p>
 
-    <form action='/leaderboard' method='POST'>
-      <button class="button is-primary" type = 'submit'>Go See Leaderboard Page</button>
+    <form action='leaderboard.html' method='POST'>
+      <button class="button is-primary" type = 'submit'>Leaderboard</button>
     </form>
 
   </div>
