@@ -28,11 +28,11 @@ One of us had issues with getting the database connection string to communicate 
 ## Responsibilities
 Eleanor: Login page, Leaderboard page
 
-Sophia: Calandar page
+Sophia: Calendar page
 
 Ashley: Home page?
 
-Kayla: Conceptually making DB schema, drawings for pet cat, CSS styling
+Kayla: Conceptually making DB schema, drawings for pet cat, CSS styling for home page and sidebar navigation in home page
 
 Laura: Helped Kayla with conceptual DB schema, then implemented database with Mongoose. Also wrote first draft of the README.
 
