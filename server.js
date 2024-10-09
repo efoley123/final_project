@@ -141,8 +141,6 @@ app.post( '/newAccount', async (req,res)=> {
           password: req.body.password,
           goals: [],
           points: 0,
-          leaderboardNumber: null,
-          __v: 0,
         }
           const result = await userCollection.insertOne(newData)
           res.render('login', { msg:'successfully created account, now log in', table:docs, layout:false })
