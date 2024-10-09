@@ -91,49 +91,50 @@
     </div>
 
     <div class="overlay" id="popupOverlayCreateGoal">
-    <div class="popup" id="popupCreateGoal">
-        <h2>Create Goal</h2>
-        <form id="popupFormCreateGoal">
-            <label for="popupGoal">Goal:</label>
-            <input type="text" id="popupGoal" required>
-            <label for="goalDescription">Description:</label>
-            <input type="text" id="goalDescription" required>
+        <div class="popup" id="popupCreateGoal">
+            <h2>Create Goal</h2>
+            <form id="popupFormCreateGoal">
+                <label for="popupGoal">Goal:</label>
+                <input type="text" id="popupGoal" required>
+                <label for="goalDescription">Description:</label>
+                <input type="text" id="goalDescription" required>
 
-            <label>Days:</label>
-            <div style="display: flex;">
-                <input type="checkbox" id="monday" name="days" value="Monday">
-                <label for="monday" style="margin-left: 8px; width: 100px;">Monday</label>
-            </div>
-            <div style="display: flex;">
-                <input type="checkbox" id="tuesday" name="days" value="Tuesday">
-                <label for="tuesday" style="margin-left: 8px; width: 100px;">Tuesday</label>
-            </div>
-            <div style="display: flex;">
-                <input type="checkbox" id="wednesday" name="days" value="Wednesday">
-                <label for="wednesday" style="margin-left: 8px; width: 100px;">Wednesday</label>
-            </div>
-            <div style="display: flex;">
-                <input type="checkbox" id="thursday" name="days" value="Thursday">
-                <label for="thursday" style="margin-left: 8px; width: 100px;">Thursday</label>
-            </div>
-            <div style="display: flex;">
-                <input type="checkbox" id="friday" name="days" value="Friday">
-                <label for="friday" style="margin-left: 8px; width: 100px;">Friday</label>
-            </div>
-            <div style="display: flex;">
-                <input type="checkbox" id="saturday" name="days" value="Saturday">
-                <label for="saturday" style="margin-left: 8px; width: 100px;">Saturday</label>
-            </div>
-            <div style="display: flex;">
-                <input type="checkbox" id="sunday" name="days" value="Sunday">
-                <label for="sunday" style="margin-left: 8px; width: 100px;">Sunday</label>
-            </div>
+                <label>Days:</label>
+                <div style="display: flex;">
+                    <input type="checkbox" id="monday" name="days" value="Monday">
+                    <label for="monday" style="margin-left: 8px; width: 100px;">Monday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="tuesday" name="days" value="Tuesday">
+                    <label for="tuesday" style="margin-left: 8px; width: 100px;">Tuesday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="wednesday" name="days" value="Wednesday">
+                    <label for="wednesday" style="margin-left: 8px; width: 100px;">Wednesday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="thursday" name="days" value="Thursday">
+                    <label for="thursday" style="margin-left: 8px; width: 100px;">Thursday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="friday" name="days" value="Friday">
+                    <label for="friday" style="margin-left: 8px; width: 100px;">Friday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="saturday" name="days" value="Saturday">
+                    <label for="saturday" style="margin-left: 8px; width: 100px;">Saturday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="sunday" name="days" value="Sunday">
+                    <label for="sunday" style="margin-left: 8px; width: 100px;">Sunday</label>
+                </div>
 
-            <div style="margin-top: 16px; text-align: center;">
-                <button type="button" id="saveButtonGoal">Save</button>
-                <button type="button" id="cancelButtonGoal">Cancel</button>
-            </div>
-        </form>
+                <div style="margin-top: 16px; text-align: center;">
+                    <button type="button" id="saveButtonGoal">Save</button>
+                    <button type="button" id="cancelButtonGoal">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="overlay" id="popupOverlayModifyGoal">
@@ -259,7 +260,7 @@
                     <td>${goal.days.join(', ')}</td>
                     <td>${goal.description}</td>
                     <td><button onclick="deleteGoal('${goal._id}')">Delete</button></td>
-                    <td><button onclick='modifyGoal('${goal._id}')'>Modify</button></td>
+                    <td><button onclick="modifyGoal('${goal._id}')">Modify</button></td>
                 `;
                 goalTableBody.appendChild(row);
             });
