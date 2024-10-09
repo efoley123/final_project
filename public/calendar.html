@@ -147,7 +147,7 @@
         today = new Date("January 1, " + year);
         start_day = today.getDay() + 1;
         fill_table("January", 31, "01");
-        fill_table("February", 28, "02");
+        fill_table("February", 29, "02");
         fill_table("March", 31, "03");
         fill_table("April", 30, "04");
         fill_table("May", 31, "05");
@@ -168,106 +168,36 @@
       <a href="javascript:;" class="o-btn js-task__save">SAVE <span class="fa fa-save"></span></a>
     </div>
   </div>
-
-  <p id="dayoftheweek" style="visibility: hidden;"></p>
-
+  <p id="dayoftheweek"></p>
+  <!-- <p id="dayoftheweek" style="visibility: hidden;"></p> -->
   <script>
-function loadGoals() {
-      fetch('/goalsLoad')
-        .then(response => response.json())
-        .then(goals => {
-          console.log('Loaded goals:', goals);
-          const taskListContainer = document.getElementById('addTask');
-          taskListContainer.innerHTML = ''; 
-          if (goals.length > 0) {
-            goals.forEach(goal => {
-              const goalItem = document.createElement('label');
-              goalItem.innerHTML = `<input type="checkbox" name="goal" /> ${goal.title || goal}`;
-              taskListContainer.appendChild(goalItem);
-            });
-          } else {
-            taskListContainer.innerHTML = '<p>User does not have any goals to complete.</p>';
+  function loadGoals() {
+  fetch('/goalsLoad')
+    .then(response => response.json())
+    .then(goals => {
+      // const taskListContainer = document.getElementById('addTask');
+      // taskListContainer.innerHTML = ''; 
+      const day = document.getElementById('dayoftheweek').textContent;
+      console.log("day" + day + "n")
+      for(let i = 0; i<goals.titles.length; i++)
+      {
+        // console.log("hi" + goals.titles.length)
+        // console.log("hi" + goals.titles[i])
+        for (let j = 0; j<goals.days[i].length; j++)
+        {
+          console.log("by" + goals.days[j])
+          // console.log(goals.titles[i].length)
+          if(goals.days[j].includes(day))
+          {
+            const goalItem = document.createElement('label');
+            goalItem.innerHTML = `<input type="checkbox" name="goal" /> ${goal.titles[i] || goal}`;
+            askListContainer.appendChild(goalItem);
           }
-        })
-        .catch(error => {
-          console.error('Error loading goals:', error);
-        });
-    }
+        }
+      }
 
-
-
-
-
-
-    // // Shows all current goals of the user that they need to complete that day
-    // function loadGoals() {
-    //   console.log("hi")
-    //   fetch('/goalsLoad')
-    //     .then(response => response.json())
-    //     console.log("hiiii")
-    //     .then(goals => {
-    //       console.log('Loaded goals:', goals);
-    //       const taskListContainer = document.getElementById('addTask');
-    //       taskListContainer.innerHTML = ''; 
-
-          
-    //        var day = document.getElementById('dayoftheweek').value; //added .value
-    //       if (goals.length > 0) {
-    //         for(i = 0; i<goals.length; i++)
-    //         {
-    //           for (j = 0; j<goals[i].length; j++)
-    //           {
-    //               if(goals[i][j].days.some(dayArray => dayArray.includes(day)))
-    //               {
-    //                 const goalItem = document.createElement('label');
-    //                 goalItem.innerHTML = `<input type="checkbox" name="goal" /> ${goal.title || goal}`;
-    //                 taskListContainer.appendChild(goalItem);
-    //               }
-    //           }
-    //         }
-    //       }
-    //       else {
-    //         taskListContainer.innerHTML = '<p>User does not have any goals to complete.</p>';
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.error('Error loading goals:', error);
-    //     });
-
-    // }
-
-//     function loadGoals() {
-//     fetch('/goalsLoad')
-//     .then(response => response.json())
-//     .then(goals => {
-//       console.log('Loaded goals:', goals);
-//       const taskListContainer = document.getElementById('addTask');
-//       taskListContainer.innerHTML = ''; 
-
-//       const day = document.getElementById('dayoftheweek').value; // Get selected day
-      
-//       // Check if the goals array has tasks and days
-//       if (goals.length === 2 && goals[0].length > 0 && goals[1].length > 0) {
-//         for (let i = 0; i < goals[0].length; i++) {
-//           const goal = goals[0][i]; // Goal name
-//           const goalDays = goals[1][i]; // Corresponding days for the goal
-          
-//           // Check if the selected day is in the goal's days
-//           if (goalDays.some(dayArray => dayArray.includes(day))) {
-//             const goalItem = document.createElement('label');
-//             goalItem.innerHTML = `<input type="checkbox" name="goal" /> ${goal}`;
-//             taskListContainer.appendChild(goalItem);
-//           }
-//         }
-//       } else {
-//         taskListContainer.innerHTML = '<p>User does not have any goals to complete.</p>';
-//       }
-//     })
-//     .catch(error => {
-//       console.error('Error loading goals:', error);
-//     });
-// }
-
+    });
+  }
   </script>
 </body>
 </html>

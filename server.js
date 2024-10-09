@@ -243,10 +243,15 @@ app.get('/goalsLoad', async (req, res) => {
     // console.log(titles)
     // console.log(days)
     // console.log(arr)
-    res.json(arr); 
-} else {
-    res.json([[], []]); // Return empty arrays if no account is found
-}
+    res.json(
+      {
+        titles: titles,
+        days: days
+      }); 
+// } else {
+//     res.json([[], []]); // Return empty arrays if no account is found
+// }
+    }
 })
 
 

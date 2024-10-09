@@ -33,6 +33,13 @@ var winCreator = $(".js-task__creator");
 var inputDate = $(this).data();
 today = year + "-" + month + "-" + day;
 
+function getDayOfWeek(date) {
+  var options = { weekday: 'long' }; // Format options for long weekday name
+  return date.toLocaleDateString('en-US', options);
+}
+
+let dayOfWeek = getDayOfWeek(dateObj); // Pass the current date object
+console.log("Today's Day of the Week: " + dayOfWeek); // Log the day of the week to the console
 
 // ------ set default task -------
 function defaultEvents(dataDay,dataName,dataNotes,classTag){
@@ -177,13 +184,17 @@ dataCel.on("click", function() {
   .attr("data-day")
   .slice(5, 7);
 
-  const dateOfWeek = document.getElementById('dayoftheweek');
+  dateOfWeek = document.getElementById('dayoftheweek');
 
   var selectedDate = $(this).attr("data-day");
-  var dateObj = new Date(selectedDate);
-  var formatOptions = {weekday: 'long'};
-  console.log(dateObj.toLocaleDateString('en-US', formatOptions));
-  dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
+
+// console.log("hi" + selectedDate);
+
+
+  // var dateObj = new Date(selectedDate);
+  // var formatOptions = {weekday: 'long'};
+  // console.log(dateObj.toLocaleDateString('en-US', formatOptions));
+  // dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
 
 
   fillEventSidebar($(this));
@@ -212,6 +223,10 @@ function moveNext(fakeClick, indexNext) {
     }
   }
 }
+
+
+
+
 function movePrev(fakeClick, indexPrev) {
   for (var i = 0; i < fakeClick; i++) {
     $(".c-main").css({
