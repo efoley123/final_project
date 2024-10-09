@@ -194,6 +194,9 @@
 
         const popupOverlayModifyGoal = document.getElementById('popupOverlayModifyGoal');
         const popupModifyGoal = document.getElementById('popupModifyGoal');
+        const saveButtonModifyGoal = document.getElementById('saveButtonModifyGoal');
+        const cancelButtonModifyGoal = document.getElementById('cancelButtonModifyGoal');
+        let currentGoalId;
         
         createGoalButton.addEventListener('click', () => {
             popupOverlayGoal.style.display = 'flex';
@@ -246,9 +249,61 @@
         }
 
         async function modifyGoal(goalId) {
+            const response = await fetch(`/getGoal/${goalId}`, { method: 'GET' });
+            const currentGoal = await response.json();
+            currentGoalId = currentGoal._id;
+            document.getElementById('popupModifyGoalTitle').value = currentGoal.title;
+            document.getElementById('modifyGoalDescription').value = currentGoal.description;
+            
+            const daysCheckboxes = document.querySelectorAll('#popupModifyGoal input[name="days"]');
+            daysCheckboxes.forEach(checkbox => {
+                checkbox.checked = currentGoal.days.includes(checkbox.value);
+            });
+
+
             popupOverlayModifyGoal.style.display = 'flex';
             popupModifyGoal.style.display = 'block';
+            
         }
+
+        // Event listener for Save button in the modify popup
+        saveButtonModifyGoal.addEventListener('click', async () => {
+            const title = document.getElementById('popupModifyGoalTitle').value;
+            const description = document.getElementById('modifyGoalDescription').value;
+            const days = Array.from(document.querySelectorAll('#popupModifyGoal input[name="days"]:checked')).map(el => el.value);
+
+            const updatedGoal = {
+                id: currentGoalId,
+                title,
+                description,
+                days
+            };
+
+            await updateGoal(updatedGoal);
+            popupOverlayModifyGoal.style.display = 'none'; 
+            popupModifyGoal.style.display = 'none'; 
+        });
+
+        // Function to update the goal in the backend
+        async function updateGoal(updatedGoal) {
+            const body = JSON.stringify(updatedGoal);
+            const response = await fetch(`/updateGoal/${updatedGoal.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body
+            });
+
+            const allGoals = await response.json();
+            populateTable(allGoals);
+        }
+
+        // Cancel button for modify popup
+        cancelButtonModifyGoal.addEventListener('click', () => {
+            popupOverlayModifyGoal.style.display = 'none'; 
+            popupModifyGoal.style.display = 'none'; 
+        });
     
         function populateTable(goals) {
             goalTableBody.innerHTML = '';

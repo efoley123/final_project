@@ -22,6 +22,7 @@ const client = new MongoClient( uri )
 const db = client.db("test")
 let userCollection = null
 let collection = null
+let goalsCollection = null;
 
 
 mongoose.connect(uri)
@@ -47,6 +48,8 @@ async function run() {
   //my database here collecction variable
   collection = await client.db("test").collection("namey") //default cause otherwise get 503 error  in app.use
   userCollection = await client.db("test").collection("users")
+  goalsCollection = await client.db("test").collection("goals");
+
 
 
 
@@ -336,6 +339,43 @@ app.get('/allGoals', async (req, res) => {
     res.json([]); 
   }
 })
+
+app.get('/getGoal/:id', async (req, res) => {
+  const goalId = req.params.id; // Get the goal ID from the URL
+
+  const everyoneGoalsCollection = await client.db("test").collection("goals");
+  // Find the goal by its ID
+  const goal = await everyoneGoalsCollection.findOne({ _id: new ObjectId(goalId) });
+
+  if (goal) {
+      res.json(goal); // Return the goal as JSON
+  } else {
+      res.status(404).send('Goal not found'); // Handle case where goal does not exist
+  }
+  
+});
+
+app.put('/updateGoal/:id', async (req, res) => {
+  const goalId = req.params.id; // Get the goal ID from the URL
+  const updatedData = req.body; // Get the updated goal data from the request body
+
+
+  const result = await goalsCollection.updateOne(
+      { _id: new ObjectId(goalId) }, // Find the goal by ID
+      { $set: updatedData } // Update the fields provided in the body
+  );
+
+  if (result.modifiedCount === 1) {
+      // If the goal was successfully updated
+      const allGoals = await goalsCollection.find({ author: id }).toArray(); // Fetch all goals for the user
+      res.status(200).json(allGoals); // Respond with all goals
+  } else {
+      res.status(404).send('Goal not found or no changes made'); // Handle case where goal is not found
+  }
+  
+});
+
+
 
 app.delete('/deleteGoal/:id', async (req, res) => {
   const goalId = req.params.id;
