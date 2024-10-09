@@ -135,11 +135,55 @@
             </div>
         </form>
     </div>
-</div>
 
+    <div class="overlay" id="popupOverlayModifyGoal">
+        <div class="popup" id="popupModifyGoal">
+            <h2>Modify Goal</h2>
+            <form id="popupFormModifyGoal">
+                <label for="popupModifyGoalTitle">Goal:</label>
+                <input type="text" id="popupModifyGoalTitle" required>
+                <label for="modifyGoalDescription">Description:</label>
+                <input type="text" id="modifyGoalDescription" required>
+
+                <label>Days:</label>
+                <div style="display: flex;">
+                    <input type="checkbox" id="modifyMonday" name="days" value="Monday">
+                    <label for="modifyMonday" style="margin-left: 8px; width: 100px;">Monday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="modifyTuesday" name="days" value="Tuesday">
+                    <label for="modifyTuesday" style="margin-left: 8px; width: 100px;">Tuesday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="modifyWednesday" name="days" value="Wednesday">
+                    <label for="modifyWednesday" style="margin-left: 8px; width: 100px;">Wednesday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="modifyThursday" name="days" value="Thursday">
+                    <label for="modifyThursday" style="margin-left: 8px; width: 100px;">Thursday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="modifyFriday" name="days" value="Friday">
+                    <label for="modifyFriday" style="margin-left: 8px; width: 100px;">Friday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="modifySaturday" name="days" value="Saturday">
+                    <label for="modifySaturday" style="margin-left: 8px; width: 100px;">Saturday</label>
+                </div>
+                <div style="display: flex;">
+                    <input type="checkbox" id="modifySunday" name="days" value="Sunday">
+                    <label for="modifySunday" style="margin-left: 8px; width: 100px;">Sunday</label>
+                </div>
+
+                <div style="margin-top: 16px; text-align: center;">
+                    <button type="button" id="saveButtonModifyGoal">Save</button>
+                    <button type="button" id="cancelButtonModifyGoal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
-        // JavaScript to show and hide the popup
         const createGoalButton = document.getElementById('createGoalButton');
         const saveButtonGoal = document.getElementById('saveButtonGoal');
         const cancelButtonGoal = document.getElementById('cancelButtonGoal');
@@ -147,90 +191,83 @@
         const popupCreateGoal = document.getElementById('popupCreateGoal');
         const goalTableBody = document.getElementById('goalTableBody');
 
+        const popupOverlayModifyGoal = document.getElementById('popupOverlayModifyGoal');
+        const popupModifyGoal = document.getElementById('popupModifyGoal');
+        
         createGoalButton.addEventListener('click', () => {
-            popupOverlayGoal.style.display = 'flex'; 
-            popupCreateGoal.style.display = 'block'; 
+            popupOverlayGoal.style.display = 'flex';
+            popupCreateGoal.style.display = 'block';
         });
-
-        // Close the popup when the Save button is clicked
-        saveButtonGoal.addEventListener('click', () => {
-
+    
+        saveButtonGoal.addEventListener('click', async () => {
             const title = document.getElementById('popupGoal').value;
             const description = document.getElementById('goalDescription').value;
             const days = Array.from(document.querySelectorAll('input[name="days"]:checked')).map(el => el.value);
-
-            const newGoal = {
-                title,
-                description,
-                days
-            };
-
-            addGoal(newGoal);
-            popupOverlayGoal.style.display = 'none'; 
-            popupCreateGoal.style.display = 'none'; 
+    
+            const newGoal = { title, description, days };
+            await addGoal(newGoal);
+            popupOverlayGoal.style.display = 'none';
+            popupCreateGoal.style.display = 'none';
         });
-
-        // Close the popup when the Cancel button is clicked
+    
         cancelButtonGoal.addEventListener('click', () => {
-            popupOverlayGoal.style.display = 'none'; 
-            popupCreateGoal.style.display = 'none'; 
+            popupOverlayGoal.style.display = 'none';
+            popupCreateGoal.style.display = 'none';
         });
-
-        async function addGoal(newGoal){
-
+    
+        async function addGoal(newGoal) {
             const body = JSON.stringify(newGoal);
             const response = await fetch('/addGoal', {
                 method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body
             });
-
+    
             const allGoals = await response.json();
             populateTable(allGoals);
         }
-
+    
         async function fetchGoals() {
-            const response = await fetch('/allGoals', {
-                method: 'GET'});
-
+            const response = await fetch('/allGoals', { method: 'GET' });
             const goals = await response.json();
             populateTable(goals);
-            
         }
-
-        async function deleteGoal(goalId) {        
-            const response = await fetch(`/deleteGoal/${goalId}`, {
-                method: 'DELETE'
-            });
-
+    
+        async function deleteGoal(goalId) {
+            const response = await fetch(`/deleteGoal/${goalId}`, { method: 'DELETE' });
+    
             if (!response.ok) {
                 throw new Error('Failed to delete goal');
             }
-
+    
             const allGoalsAfterDelete = await response.json();
             populateTable(allGoalsAfterDelete);
-    
         }
 
-
+        async function modifyGoal(goalId) {
+            popupOverlayModifyGoal.style.display = 'flex';
+            popupModifyGoal.style.display = 'block';
+        }
+    
         function populateTable(goals) {
-            goalTableBody.innerHTML = ''; // Clear existing rows
+            goalTableBody.innerHTML = '';
             goals.forEach(goal => {
                 const row = document.createElement('tr');
+                //row.setAttribute('data-id', goal._id);
                 row.innerHTML = `
                     <td>${goal.title}</td>
                     <td>${goal.days.join(', ')}</td>
                     <td>${goal.description}</td>
                     <td><button onclick="deleteGoal('${goal._id}')">Delete</button></td>
-                    <td><button onclick="modifyGoal(${goal._id})">Modify</button></td>
+                    <td><button onclick='modifyGoal('${goal._id}')'>Modify</button></td>
                 `;
                 goalTableBody.appendChild(row);
             });
         }
-
+    
         window.onload = fetchGoals;
     </script>
+    
+    
 </body>
 </html>
