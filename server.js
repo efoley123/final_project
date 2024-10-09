@@ -2,7 +2,8 @@ require('dotenv').config(); //for local development
 const mongoose = require('mongoose')
 const Goal = require('./goalSchema.js')
 const User = require('./userSchema.js')
-
+let currUser = null
+let id = null
 
 const express = require("express"),
      { MongoClient, ObjectId } = require("mongodb"),//objectID allows us to make a key and access things
@@ -141,8 +142,6 @@ app.post( '/newAccount', async (req,res)=> {
           password: req.body.password,
           goals: [],
           points: 0,
-          leaderboardNumber: null,
-          __v: 0,
         }
           const result = await userCollection.insertOne(newData)
           res.render('login', { msg:'successfully created account, now log in', table:docs, layout:false })
@@ -164,6 +163,8 @@ app.post( '/newAccount', async (req,res)=> {
 
 
 app.post( '/logout', (req,res)=> {
+  currUser = null;
+  id = null
   res.redirect( 'login.html' )
   //would also rechange a global variable if we start saving a global variable which knows what user is logged in
  })
@@ -176,9 +177,11 @@ app.post( '/login', async (req,res)=> {
 
  const docs = await userCollection.find({}).toArray()
  let loginSuccessful = 0;
+ let userId = null
  for (i=0;i<docs.length;i++) {
      if (req.body.password ===docs[i].password && req.body.username ===docs[i].username) {
          loginSuccessful = 1;
+         userId = docs[i]._id;
          console.log(req.body.username)
          collectionName = req.body.username;
          collection = await client.db("users").collection(req.body.username);
@@ -187,6 +190,9 @@ app.post( '/login', async (req,res)=> {
 
 
 if(loginSuccessful) {
+  currUser = req.body.username;//setting the global variables correctly
+  id = userId;
+
  req.session.login = true
  res.redirect( 'main.html' )
 }else{
@@ -207,10 +213,14 @@ app.post( '/home', (req,res)=> {
   //would also rechange a global variable if we start saving a global variable which knows what user is logged in
  })
 
+app.post( '/mypetpage', (req,res)=> {
+  res.redirect( 'mypet.html' )
+  })
+
+
 app.post( '/leaderboard', (req,res)=> {
   res.redirect( 'leaderboard.html' )
-  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
- })
+})
 
 // route to get all docs
 app.get("/lbdisplay", async (req, res) => {
@@ -256,6 +266,77 @@ app.get("/lbdisplay", async (req, res) => {
       res.end(JSON.stringify(top10))
   }
 })
+
+app.post("/getCurrectGoalsForToday", async (req, res) => {
+  //
+  const goalsCollection = await client.db("test").collection("goals");
+  const account = await goalsCollection.find({author: id}).toArray();
+
+  if (account.length > 0) {
+    let arrayOfGoals = [];
+    let newData;
+    console.log("account is greater than 0");
+    for (i=0;i<account.length;i++) {
+      if (account[i].days.includes(req.body.weekdayName)) {
+        newData = {
+          _id: account[i]._id,
+          title: account[i].title,
+        }
+        arrayOfGoals.push(newData);
+      }
+    }
+    res.json(arrayOfGoals)
+  }
+})
+
+app.post( '/complete', async (req,res)=> {
+  //will have to change in goals that it is complete now
+  console.log("We completed 1 of the goals")
+  
+  const goals = req.body;
+  const keys = Object.keys(goals);
+  console.log("here is keys")
+  console.log(keys);
+  if (req.body != null) {
+    const goalsCollection = await client.db("test").collection("goals");
+    
+    
+    for (i=0; i<keys.length;i++) {
+      //console.log(goals[i]);
+      
+      let string = "goal" + [i];
+      let account = await userCollection.find({_id: id}).toArray();
+      let goal = await goalsCollection.find({_id:  new ObjectId( goals[keys[i]])}).toArray();
+
+      console.log("here is goal \n");
+      console.log(goal[0])
+      let array = goal[0].completed;
+      console.log("here is array \n");
+      console.log(array);
+      let date = new Date();
+      console.log("here is date " + date + "\n");
+      array.push(date.toDateString());
+      console.log(array);
+      let result = await goalsCollection.updateOne(
+         { _id: new ObjectId( goals[keys[i]] ) },
+         { $set:{ completed:array } })
+
+         console.log(account);
+         console.log( account[0].points);
+
+         let totalPoints = account[0].points+ 10;
+         let result2 = await userCollection.updateOne(
+           { _id: new ObjectId( id ) },
+           { $set:{ points:totalPoints} })
+    }
+    console.log("updated individual goal");
+    //I can then do a handlebars to say goal is now completed    
+    res.render('main', { msg:'successfully completed a goal', layout:false })
+  }
+  else {
+    res.render('main', { msg:'you did not select a goal to complete', layout:false })
+  }
+  })
 
 
 
