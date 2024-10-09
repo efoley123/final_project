@@ -78,11 +78,13 @@ addBtn.on("click", function() { //WHEN THIS BUTTON IS CLICKED IT GRABS THE GOALS
     if ($(this).hasClass("isSelected")) {
       today = $(this).data("day");
       document.querySelector('input[type="date"]').value = today;
-    } else {
-      document.querySelector('input[type="date"]').value = today;
-    }
+    } 
+    // else {
+    //   document.querySelector('input[type="date"]').value = today;
+    // }
   });
 });
+
 closeBtn.on("click", function() {
   winCreator.removeClass("isVisible");
   $("body").removeClass("overlay");
@@ -119,12 +121,12 @@ saveBtn.on("click", function() {
 //fill sidebar event info
 function fillEventSidebar(self) {
   $(".c-aside__task").remove();
-  // var thisName = self.attr("data-name");
-  // var thisNotes = self.attr("data-notes");
+  var thisName = self.attr("data-name");
+  var thisNotes = self.attr("data-notes");
   var thisTaskCompleted = self.hasClass("task--completed");
-  // var thisImportant = self.hasClass("task--important");
-  // var thisBirthday = self.hasClass("task--birthday");
-  // var thisFestivity = self.hasClass("task--festivity");
+  var thisImportant = self.hasClass("task--important");
+  var thisBirthday = self.hasClass("task--birthday");
+  var thisFestivity = self.hasClass("task--festivity");
   var thisTask = self.hasClass("task");
   
   switch (true) {
@@ -174,6 +176,15 @@ dataCel.on("click", function() {
   var thisMonth = $(this)
   .attr("data-day")
   .slice(5, 7);
+
+  const dateOfWeek = document.getElementById('dayoftheweek');
+
+  var selectedDate = $(this).attr("data-day");
+  var dateObj = new Date(selectedDate);
+  var formatOptions = {weekday: 'long'};
+  console.log(dateObj.toLocaleDateString('en-US', formatOptions));
+  dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
+
 
   fillEventSidebar($(this));
 

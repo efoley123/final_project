@@ -236,13 +236,14 @@ app.get( '/', (req,res) => { //
 app.get('/goalsLoad', async (req, res) => {
   const goalsCollection = await client.db("test").collection("goals");
   const account = await goalsCollection.find({author: id}).toArray();
-  console.log(account)
   if (account.length > 0) {
     const titles = account.map(goal => goal.title);
-    // const days = account.map(goal => goal.days);
-    // const arr = [titles, days]; 
-    console.log(titles)
-    // res.json(arr); 
+    const days = account.map(goal => goal.days);
+    const arr = [titles, days]; 
+    // console.log(titles)
+    // console.log(days)
+    // console.log(arr)
+    res.json(arr); 
 } else {
     res.json([[], []]); // Return empty arrays if no account is found
 }
