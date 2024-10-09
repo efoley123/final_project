@@ -292,21 +292,24 @@ app.post("/getCurrectGoalsForToday", async (req, res) => {
 app.post( '/complete', async (req,res)=> {
   //will have to change in goals that it is complete now
   console.log("We completed 1 of the goals")
-  
+  let correctAdd = 1;
   const goals = req.body;
   const keys = Object.keys(goals);
   console.log("here is keys")
   console.log(keys);
-  if (req.body != null) {
+  console.log(keys.length);
+  if (keys.length != 0) {
     const goalsCollection = await client.db("test").collection("goals");
     
     
     for (i=0; i<keys.length;i++) {
       //console.log(goals[i]);
-      
-      let string = "goal" + [i];
+      let addCurrentGoal = 1;
       let account = await userCollection.find({_id: id}).toArray();
       let goal = await goalsCollection.find({_id:  new ObjectId( goals[keys[i]])}).toArray();
+
+
+      
 
       console.log("here is goal \n");
       console.log(goal[0])
@@ -315,8 +318,19 @@ app.post( '/complete', async (req,res)=> {
       console.log(array);
       let date = new Date();
       console.log("here is date " + date + "\n");
+      
+      for (j=0;j<array.length;j++) {
+        if (array[j]===date.toDateString()) {
+          //we do not want to add it and give points
+          correctAdd=0;
+          addCurrentGoal = 0;
+  
+        }
+      }
+      if (addCurrentGoal===1) {
       array.push(date.toDateString());
       console.log(array);
+
       let result = await goalsCollection.updateOne(
          { _id: new ObjectId( goals[keys[i]] ) },
          { $set:{ completed:array } })
@@ -328,10 +342,18 @@ app.post( '/complete', async (req,res)=> {
          let result2 = await userCollection.updateOne(
            { _id: new ObjectId( id ) },
            { $set:{ points:totalPoints} })
+         
     }
+  }
+
+    if (correctAdd===0) {
+
+      res.render('main', { msg:'you tried to complete a goal you already completed so we did not double count it', layout:false })
+    } else if (correctAdd===1) {
     console.log("updated individual goal");
     //I can then do a handlebars to say goal is now completed    
     res.render('main', { msg:'successfully completed a goal', layout:false })
+    }
   }
   else {
     res.render('main', { msg:'you did not select a goal to complete', layout:false })
