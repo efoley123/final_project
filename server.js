@@ -293,16 +293,21 @@ app.post( '/complete', async (req,res)=> {
   //will have to change in goals that it is complete now
   console.log("We completed 1 of the goals")
   
-  const goals = req.body.goal;
-  console.log("here is goals")
-  console.log(goals);
-  if (req.body.goal != null) {
+  const goals = req.body;
+  const keys = Object.keys(goals);
+  console.log("here is keys")
+  console.log(keys);
+  if (req.body != null) {
     const goalsCollection = await client.db("test").collection("goals");
     
-    for (i=0; i<goals.length;i++) {
+    
+    for (i=0; i<keys.length;i++) {
       //console.log(goals[i]);
+      
+      let string = "goal" + [i];
       let account = await userCollection.find({_id: id}).toArray();
-      let goal = await goalsCollection.find({_id:  new ObjectId( goals[i])}).toArray();
+      let goal = await goalsCollection.find({_id:  new ObjectId( goals[keys[i]])}).toArray();
+
       console.log("here is goal \n");
       console.log(goal[0])
       let array = goal[0].completed;
@@ -313,7 +318,7 @@ app.post( '/complete', async (req,res)=> {
       array.push(date.toDateString());
       console.log(array);
       let result = await goalsCollection.updateOne(
-         { _id: new ObjectId( goals[i] ) },
+         { _id: new ObjectId( goals[keys[i]] ) },
          { $set:{ completed:array } })
 
          console.log(account);

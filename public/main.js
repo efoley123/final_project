@@ -44,7 +44,7 @@ const goalsToday = async function( event ) {
         let str = "goal" + String(count);
         let newInput = document.createElement('input');
         newInput.type = 'checkbox';
-        newInput.name = "goal";
+        newInput.name = str;
         let str2 = text[i]._id;
         newInput.value = str2;
 
