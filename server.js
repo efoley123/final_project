@@ -126,6 +126,11 @@ app.post( '/createAccount', (req,res)=> {
  res.redirect( 'signup.html' )
 })
 
+app.post( '/goals', (req,res)=> {
+  res.redirect( 'goals.html' )
+  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
+ })
+
 
 //getting all goals
 app.get('/goals', async (req, res) => {
@@ -160,8 +165,6 @@ app.post( '/newAccount', async (req,res)=> {
           password: req.body.password,
           goals: [],
           points: 0,
-          leaderboardNumber: null,
-          __v: 0,
         }
           const result = await userCollection.insertOne(newData)
           res.render('login', { msg:'successfully created account, now log in', table:docs, layout:false })
@@ -202,7 +205,7 @@ app.post( '/login', async (req,res)=> {
      if (req.body.password ===docs[i].password && req.body.username ===docs[i].username) {
          loginSuccessful = 1;
          userId = docs[i]._id;
-        //  console.log(req.body.username)
+         console.log(req.body.username)
          collectionName = req.body.username;
          collection = await client.db("users").collection(req.body.username);
      }
@@ -210,15 +213,8 @@ app.post( '/login', async (req,res)=> {
 
 
 if(loginSuccessful) {
-  currUser = req.body.username
-  id = userId
-  console.log(id)
-
-
-  // const user = await collection.findOne({ username: currUser }, { projection: { _id: 1 } });
-  // id = currUser._id
-  // console.log(id)
-
+  currUser = req.body.username;//setting the global variables correctly
+  id = userId;
 
  req.session.login = true
  res.redirect( 'main.html' )
@@ -240,13 +236,13 @@ app.post( '/home', (req,res)=> {
   //would also rechange a global variable if we start saving a global variable which knows what user is logged in
  })
 
+app.post( '/mypetpage', (req,res)=> {
+  res.redirect( 'mypet.html' )
+  })
+
+
 app.post( '/leaderboard', (req,res)=> {
   res.redirect( 'leaderboard.html' )
-  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
- })
-
- app.post( '/goals', (req,res)=> {
-  res.redirect( 'goals.html' )
   //would also rechange a global variable if we start saving a global variable which knows what user is logged in
  })
 
@@ -294,6 +290,110 @@ app.get("/lbdisplay", async (req, res) => {
       res.end(JSON.stringify(top10))
   }
 })
+
+app.post("/getCurrectGoalsForToday", async (req, res) => {
+  //
+  const goalsCollection = await client.db("test").collection("goals");
+  const account = await goalsCollection.find({author: id}).toArray();
+
+  if (account.length > 0) {
+    let arrayOfGoals = [];
+    let newData;
+    console.log("account is greater than 0");
+    for (i=0;i<account.length;i++) {
+      if (account[i].days.includes(req.body.weekdayName)) {
+        newData = {
+          _id: account[i]._id,
+          title: account[i].title,
+        }
+        arrayOfGoals.push(newData);
+      }
+    }
+    res.json(arrayOfGoals)
+  }
+})
+
+app.post( '/complete', async (req,res)=> {
+  //will have to change in goals that it is complete now
+  console.log("We completed 1 of the goals")
+  let correctAdd = 1;
+  const goals = req.body;
+  const keys = Object.keys(goals);
+  console.log("here is keys")
+  console.log(keys);
+  console.log(keys.length);
+  if (keys.length != 0) {
+    const goalsCollection = await client.db("test").collection("goals");
+    
+    
+    for (i=0; i<keys.length;i++) {
+      //console.log(goals[i]);
+      let addCurrentGoal = 1;
+      let account = await userCollection.find({_id: id}).toArray();
+      let goal = await goalsCollection.find({_id:  new ObjectId( goals[keys[i]])}).toArray();
+
+
+      
+
+      console.log("here is goal \n");
+      console.log(goal[0])
+      let array = goal[0].completed;
+      console.log("here is array \n");
+      console.log(array);
+      let date = new Date();
+      console.log("here is date " + date + "\n");
+      
+      for (j=0;j<array.length;j++) {
+        if (array[j]===date.toDateString()) {
+          //we do not want to add it and give points
+          correctAdd=0;
+          addCurrentGoal = 0;
+  
+        }
+      }
+      if (addCurrentGoal===1) {
+      array.push(date.toDateString());
+      console.log(array);
+
+      let result = await goalsCollection.updateOne(
+         { _id: new ObjectId( goals[keys[i]] ) },
+         { $set:{ completed:array } })
+
+         console.log(account);
+         console.log( account[0].points);
+
+         let totalPoints = account[0].points+ 10;
+         let result2 = await userCollection.updateOne(
+           { _id: new ObjectId( id ) },
+           { $set:{ points:totalPoints} })
+         
+    }
+  }
+
+    if (correctAdd===0) {
+
+      res.render('main', { msg:'you tried to complete a goal you already completed so we did not double count it', layout:false })
+    } else if (correctAdd===1) {
+    console.log("updated individual goal");
+    //I can then do a handlebars to say goal is now completed    
+    res.render('main', { msg:'successfully completed a goal', layout:false })
+    }
+  }
+  else {
+    res.render('main', { msg:'you did not select a goal to complete', layout:false })
+  }
+  })
+
+  app.get('/getUserPoints', async (req, res) => {
+
+    let account = await userCollection.find({_id: id}).toArray();
+    console.log("get user account for points")
+    console.log(account);
+    console.log(account[0].points);
+    res.json( account[0].points)
+
+
+  })
 
 
 

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- get rid of favicon error -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" type="text/css" href="petstyle.css">
+</head>
+
+<body>
+    <h2 class="subtitle is-2">My Pet</h2>
+    <div class="box" style="text-align: center;">
+
+        <form action='/home' method='POST'>
+            <button class="button is-primary" type = 'submit' > Return Home</button>
+          </form>
+    
+        <p>Here is your pet</p>
+        <figure>
+            <div class="container"><img id="HappyCat" src="happyCat.png" width="320" /></div>
+            <figcaption>Happy Cat</figcaption>
+        </figure>
+
+        <figure>
+            <img id="SadCat" src="sadCat.png" width="320" />
+            <figcaption>Sad Cat</figcaption>
+        </figure>
+
+        <figure>
+            <img id="RegularCat" src="normalCat.png" width="320" />
+            <figcaption>Regular Cat</figcaption>
+        </figure>
+
+        <p> In my imagination, if you didn't complete a goal today or have no goals today you get Sad Cat.<br>
+         If you completed a goal today you get regualr cat.<br>
+         If you complete all goals that day you get Happy Cat</p>
+
+    </div>
+</body>
+</html>
