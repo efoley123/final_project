@@ -752,7 +752,7 @@ app.post('/checkedGoals', async (req, res) =>
       const account = await goalsCollection.findOne({author: id});
       await usersCollection.updateOne(
         { _id: new ObjectId(id) },
-        { $set: { points: (account.points || 0) + 10 } }
+        { $inc: { points: (account.points || 0) + 10 } }
       );
     }
 
