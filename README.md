@@ -28,7 +28,7 @@ One of us had issues with getting the database connection string to communicate 
 ## Responsibilities
 Eleanor: Login page, Leaderboard page, Main.html linking to get the day's current goals and user points
 
-Sophia: Calandar page
+Sophia: Calendar page
 
 Ashley: Goal page
 

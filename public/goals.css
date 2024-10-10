@@ -1,6 +1,6 @@
 body {
     background-color: #BDDAB4; 
-    background: repeating-linear-gradient(45deg, #FFCDDF,
+    background: repeating-linear-gradient(90deg, #FFCDDF,
     #FFCDDF 30px,
     #f1b4ca 30px,
     #f1b4ca 60px );
@@ -40,7 +40,8 @@ th {
     align-items: center; 
 }
 .popup {
-    background: #BDDAB4; 
+    background: #FFCDDF; 
+    background-image: linear-gradient(to bottom right, #ffc9dd, #d0ffaa);
     padding: 20px;
     border-radius: 10px;
     width: 300px;

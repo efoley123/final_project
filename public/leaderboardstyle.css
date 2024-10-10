@@ -1,11 +1,15 @@
 body {
-    align-items: center;
-    text-align: center;
-    font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
-    margin: 2em;
-    background-color:#E1FFFE;
-    color:black;
-  }
+  align-items: center;
+  text-align: center;
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 2em;
+  background-color: #FFCDDF;
+  background: repeating-linear-gradient(90deg, #FFCDDF,
+  #FFCDDF 30px,
+  #6C4B38 30px,
+  #6C4B38 60px );
+  color:black;
+}
 
   .box {
     width: 500px;
