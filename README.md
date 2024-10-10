@@ -1,49 +1,40 @@
 # Final Project
-*Due October 10th by 11:59 AM*
+By Eleanor Foley, Laura Pellowski, Ashley Jacob, Sophia John, Kayla Lem
 
-For your final project, you'll implement a web application that exhibits understanding of the course materials. 
-This project should provide an opportunity to both be creative and to pursue individual research and learning goals.
+## Description
+LINK: 
 
-## General description
-Your project should consist of a complete Web application, exhibiting facets of the three main sections of the course material:
+Our project is a habit tracker website. The user can create an account, and then add habits that they would like to complete. For example, if they want to have a habit of "Drinking water", create a new goal titled "Drinking water", add a description if they would like, and then select the days of the week in which they want to complete that goal. We then generate a "priority" marking for that goal [FIX, not sure exactly how this is working]. The home page will show the habits assigned for that day. For example, if today is Monday, only the habits assigned to be completed on Mondays will show up. If the user wants a more general overview of all their habits, they can navigate over to the calander page [FIX, elaborate more, not sure what features it has]. When the user completes a task, they will get a point added to their account's score. There is a leaderboard page which displays every user's score. The idea behind this is to help motivate the users to complete their goals, so that they can increase their score on the leaderboard. In addition, another motivating factor for the user is the pet page. This is where they can take care of a cute pet cat. If they don't complete any of their tasks for the day, the cat is sad. If they complete some of their goals, the cat is normal with a heart. And if they complete all of their goals, the cat is very happy.
 
-- Static web page content and design. You should have a project that is accessible, easily navigable, and features significant content.
-- Dynamic behavior implemented with JavaScript (TypeScript is also allowed if your group wants to explore it).
-- Server-side programming *using Node.js*. Typically this will take the form of some sort of persistent data (database), authentication, and possibly server-side computation.
-- A video (less than five minutes) where each group member explains some aspect of the project. An easy way to produce this video is for you all the groups members to join a Zoom call that is recorded; each member can share their screen when they discuss the project or one member can "drive" the interface while other members narrate (this second option will probably work better.) The video should be posted on YouTube or some other accessible video hosting service. Make sure your video is less than five minutes, but long enough to successfully  explain your project and show it in action. There is no minimum video length.
+The theme of the website is supposed to be cute and comforting. Because of this, we chose a pastel color palette. [FIX, can expand more here potentially]
 
-## Project ideation
-Excellent projects typically serve someone/some group; for this assignment you need to define your users and stakeholders. I encourage you to identify projects that will have impact, either artistically, politically, or in terms of productivity. 
 
-### Deliverables
+## Additional Instructions
 
-#### Form Team (due 9/12)
-Students are will work in teams of 3-5 students for the project; teams of two can be approved with the permission of the instructor. Working in teams should help enable you to build a good project in a limited amount of time.  Use the `#project-logistics` channel in Discord to pitch ideas for final projects and/or find fellow team members as needed.
+## Technologies Used
+Node.js:
 
-Teams must be in place by end of day on Thursday, September 12th. If you have not identified a team at this point, you will be assigned a team. 
+Express: We used express for our server.
 
-#### Proposal (due 9/20 by end of day) 
-Provide an outline of your project direction and the names of associated team members. 
-The outline should have enough detail so that staff can determine if it meets the minimum expectations, or if it goes too far to be reasonable by the deadline. Please include a general description of a project, and list of key technologies/libraries you plan on using (e.g. React, Three.js, Svelte, TypeScript etc.). Two to four paragraphs should provide enough level of detail. Name the file proposal.md and submit a pull request by Friday, September 20th at 11:59 PM (end of day). *Only one pull request is required per team*.
+Cookies/Handlebars:
 
-You will be given some class time to work on your proposal, but please plan on reserving additional time outside of class as needed. There are no other scheduled checkpoints for your project besides the final submission. 
+Mongoose/MongoDB: We wanted to enforce a schema on our database, since we all favor this way of designing databases versus just using normal MongoDB. Mongoose was easy to install, and writing the schemas were pretty easy. There are two schemas: Users and Goals. Users keeps track of the username and password of each user, as well was which goals they have, their score, and their leaderboard number. Goals knows the author of the goal, the title, description, priority, and days of that goal, as well as what days of the week that goal was completed.
 
-#### Turning in Your Project
-Submit a second PR on the final project repo to turn in your app and code. Again, only one pull request per team.
+## Challenges
+The original plan was to use a different database tool, but we had trouble getting the connection set up. Since MongoDB worked well in the individual assignments in terms of connecting to the database, we decided to try using Mongoose since we wanted an enforced schema. This was our first time using Mongoose, so there was a little bit of a learning curve, but once one scema was done and objects were able to be added to the database, the second one went smoothly
 
-Deploy your app, in the form of a webpage, to Glitch/Heroku/Digital Ocean or some other service; it is critical that the application functions correctly wherever you post it.
+One of us had issues with getting the database connection string to communicate with the .env file, which took a while to troubleshoot and sort out.
 
-The README for your second pull request should contain:
+## Responsibilities
+Eleanor: Login page, Leaderboard page, Main.html linking to get the day's current goals and user points
 
-1. A brief description of what you created, and a link to the project itself (two paragraphs of text)
-2. Any additional instructions that might be needed to fully use your project (login information etc.)
-3. An outline of the technologies you used and how you used them.
-4. What challenges you faced in completing the project.
-5. What each group member was responsible for designing / developing.
-6. A link to your project video.
+Sophia: Calendar page
 
-Think of 1,3, and 4 in particular in a similar vein to the design / tech achievements for A1—A4… make a case for why what you did was challenging and why your implementation deserves a grade of 100%.
+Ashley: Goal page
 
-## FAQs
+Kayla: Conceptually making DB schema, drawings for pet cat, CSS styling
 
-- **Can I use XYZ framework?** You can use any web-based frameworks or tools available, but for your server programming you need to use Node.js. Your client-side scripting language should be either JavaScript or TypeScript. While the course staff is happy to help with frameworks used in the class, we can't guarantee we'll be able to assist you with other frameworks / databases; choose carefully!
+Laura: Helped Kayla with conceptual DB schema, then implemented database with Mongoose. Also wrote first draft of the README.
+
+## Link to Video
+VIDEO LINK:

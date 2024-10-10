@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- get rid of favicon error -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" type="text/css" href="petstyle.css">
+</head>
+
+<body>
+    <h2 class="subtitle is-2">My Pet</h2>
+    <div class="box" style="text-align: center;">
+
+        <form action='/home' method='POST'>
+            <button class="button is-primary" type = 'submit' > Return Home</button>
+          </form>
+    
+        <p>Here is your pet</p>
+
+        <script>
+            //import {id} from server.js
+            //let id = require("./server.js") 
+
+            const determineCat = async function (event) {
+                const response = await fetch( '/determineCat', {
+                    method:'GET'
+                })
+                const catNumber = await response.json();
+
+                let pictureContainer = document.getElementById("pictureHere")
+                const happyCat = "<div class=\"container\"><img id=\"HappyCat\" src=\"happyCat.png\" width=\"320\" /></div> <figcaption>Happy Cat!!</figcaption> <p>You have completed all of your goals for today :)</p>"
+                const normalCat = "<div class=\"container\"><img id=\"RegularCat\" src=\"normalCat.png\" width=\"320\" /></div> <figcaption>Normal Cat</figcaption> <p>You have made progress on your goals for today but have not completed them all.</p>"
+                const sadCat = "<div class=\"container\"><img id=\"SadCat\" src=\"sadCat.png\" width=\"320\" /></div> <figcaption>Sad Cat :(</figcaption> <p>You did not complete any goals today (or you have no goals for today).</p>"
+                
+                let cat = "placeholder"
+                switch(catNumber) {
+                    case 0:
+                        cat = sadCat
+                        break
+                    case 1:
+                        cat = normalCat
+                        break
+                    case 2:
+                        cat = happyCat
+                }
+                pictureContainer.innerHTML = cat
+            }
+            
+            window.onload = async function() {
+                determineCat();
+            }
+        </script>
+
+        <figure id ="pictureHere"></figure>
+    </div>
+</body>
+</html>

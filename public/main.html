@@ -1,36 +1,80 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <title>CS4241 Final Project</title>
     <meta charset="utf-8">
     <!-- get rid of favicon error -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-  </head>
-  <body>
-    <header>CS4241 Final Project</header>
-    <h2>Habit Tracker</h2>
+    <link rel="stylesheet" type="text/css" href="mainstyle.css">
+    <script src="main.js"></script>
 
     <form action='/logout' method='POST'>
-      <button class="button is-primary" type = 'submit'>Log Out</button>
+      <button class="logoutbutton" type = 'submit'>Log Out</button>
     </form>
 
-    <p>Log In Page was before this</p>
+    <script src="main.js"></script>
+  </head>
 
-    <p>Points at the top</p>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10540;</a>
+    <a href="goals.html">Goals</a>
+    <a href="mypet.html">My Pet</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="calendar.html">Calendar</a>
+  </div>
 
-    <p>Habit List (cause we ask for your habits which you can input)</p>
 
-    <p>Goal List (cause we ask for your habits which you can input)</p>
+  <button class="openbutton" onclick="openNav()">Open Navigation</button>
 
-    <p>AI chatbox maybe on the side or the bottom</p>
+  <div id="main">
 
-    <p>Cute Pet you can take care of? Potentially idk how it would look</p>
+  <body>
+    <header>CS4241 Final Project
+      Habit Tracker
+    </header>
+    <div class="box" style="text-align: center;">
 
-    <p>Link to seperate html page where you can buy certain store items with your points</p>
+  <box>
+      <p align="right" id="points"><b>EXP:</b></p>
 
-    <p>Link to leaderboard page</p>
+    <p style="display: inline"><b>Today's Date is </p> <p id="DateForToday" style="display: inline"></b></p>
+
     
-    <a href="calendar.html">Go to Calendar Page </a>
+    <p> - Your Goals For Today - </p>
+
+    <form action="/complete" id="formGoal" method='POST'>
+    </form>
+
+   
+    <p>My Goal</p>
+
+    <form action='/goals' method='POST'>
+      <button class="button is-primary" type = 'submit'>My Goals</button>
+    </form>
+  
 
 
+    
+    <p>My Pet</p>
+    <form action='/mypetpage' method='POST'>
+      <button class="button is-primary" type = 'submit'>My Pet</button>
+    </form>
+  
+
+    <p>See How You Compare on The Leaderboard</p>
+
+    <form action='/leaderboard' method='POST'>
+      <button class="button is-primary" type = 'submit'>Leaderboard</button>
+    </form>
+
+    <p>Go To The Calendar</p>
+
+    <form action='/calendar' method='POST'>
+      <button class="button is-primary" type = 'submit'>Calendar</button>
+    </form>
+
+  </box>
+  </div>
   </body>
+  </html>

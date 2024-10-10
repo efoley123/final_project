@@ -1,0 +1,129 @@
+
+.sidenav {
+  height: 100%; 
+  width: 0; 
+  position: fixed; 
+  z-index: 1; 
+  top: 0; 
+  left: 0;
+  background-color: #DBFFBE; 
+  overflow-x: hidden; 
+  padding-top: 60px; 
+  transition: 0.5s; 
+  
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #6C4B38;
+  display: block;
+  transition: 0.3s;
+}
+
+
+.sidenav a:hover {
+  color: #FFCDDF;
+}
+
+header {
+  width: 300px;
+  margin:auto;
+  padding: 15px;
+  border: 5px solid #6C4B38;
+  border-radius: 20%;
+  background-color: #E1FFFE;
+  color: #000000;
+}
+
+h2 {
+  width: 300px;
+  margin:auto;
+  padding: 15px;
+  border: 5px solid #6C4B38;
+  border-radius: 20%;
+  background-color: #E1FFFE;
+  color: #000000;
+}
+
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+body {
+    align-items: center;
+    text-align: center;
+    font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+    margin: 2em;
+    background-color: #FFCDDF;
+    background: repeating-linear-gradient(90deg, #FFCDDF,
+    #FFCDDF 30px,
+    #6C4B38 30px,
+    #6C4B38 60px );
+    color:black;
+  }
+
+  .box {
+    width:auto;
+    margin:auto;
+    padding: 20px;
+    border: 5px solid #6C4B38;
+    border-radius: 10%;
+    background-color: #E1FFFE;
+  }
+
+  .logoutbutton {
+    background-color: #DBFFBE;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 15px;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 10px 4px;
+    cursor: pointer;
+  }
+
+  .openbutton {
+      background-color: #DBFFBE;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 15px;
+      color: black;
+      padding: 10px 20px;
+      text-align: center;
+      vertical-align: middle;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 10px 4px;
+      cursor: pointer;
+    }
+
+
+
+    button {
+      background-color: #DBFFBE;
+      border-radius: 15px;
+      color: black;
+      padding: 10px 20px;
+      text-align: center;
+      vertical-align: middle;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 10px 4px;
+      cursor: pointer;
+      margin-top: 0.5px;
+      margin-bottom: 40px;
+    }
+

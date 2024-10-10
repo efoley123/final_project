@@ -14,7 +14,6 @@ const goalSchema = new mongoose.Schema({
         type: [String],
         default:[],
     },
-    priority: String,
     completed: {
         type: [Date],
         default: [],
