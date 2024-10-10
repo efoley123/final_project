@@ -7,9 +7,9 @@ window.onload = function ()
 var monthEl = $(".c-main");
 var dataCel = $(".c-cal__cel");
 var dateObj = new Date();
-var month = dateObj.getUTCMonth() + 1;
-var day = dateObj.getUTCDate();
-var year = dateObj.getUTCFullYear();
+var month = dateObj.getMonth() + 1;
+var day = dateObj.getDate();
+var year = dateObj.getFullYear();
 var monthText = [
   "January",
   "February",
@@ -33,6 +33,13 @@ var winCreator = $(".js-task__creator");
 var inputDate = $(this).data();
 today = year + "-" + month + "-" + day;
 
+function getDayOfWeek(date) {
+  var options = { weekday: 'long' }; // Format options for long weekday name
+  return date.toLocaleDateString('en-US', options);
+}
+
+let dayOfWeek = getDayOfWeek(dateObj); // Pass the current date object
+console.log("Today's Day of the Week: " + dayOfWeek); // Log the day of the week to the console
 
 // ------ set default task -------
 function defaultEvents(dataDay,dataName,dataNotes,classTag){
@@ -168,65 +175,37 @@ function fillEventSidebar(self) {
       break;
    }
 };
-// dataCel.on("click", function() {
-//   var thisEl = $(this);
-//   var thisDay = $(this)
-//   .attr("data-day")
-//   .slice(8);
-//   var thisMonth = $(this)
-//   .attr("data-day")
-//   .slice(5, 7);
-
-//   const dateOfWeek = document.getElementById('dayoftheweek');
-
-//   var selectedDate = $(this).attr("data-day");
-//   var dateObj = new Date(selectedDate);
-//   var formatOptions = {weekday: 'long'};
-//   console.log(dateObj.toLocaleDateString('en-US', formatOptions));
-//   dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
-
-
-//   fillEventSidebar($(this));
-
-//   $(".c-aside__num").text(thisDay);
-//   $(".c-aside__month").text(monthText[thisMonth - 1]);
-
-//   dataCel.removeClass("isSelected");
-//   thisEl.addClass("isSelected");
-
-// });
-
-
-
-
 dataCel.on("click", function() {
   var thisEl = $(this);
-  var thisDay = $(this).attr("data-day").slice(8); // Day of the month
-  var thisMonth = $(this).attr("data-day").slice(5, 7); // Month
+  var thisDay = $(this)
+  .attr("data-day")
+  .slice(8);
+  var thisMonth = $(this)
+  .attr("data-day")
+  .slice(5, 7);
 
-  const dateOfWeek = document.getElementById('dayoftheweek'); // Ensure this element exists in your HTML
+  dateOfWeek = document.getElementById('dayoftheweek');
 
-  var selectedDate = $(this).attr("data-day"); // Get the date from the clicked cell
-  var dateObj = new Date(selectedDate); // Create a Date object from the selected date
-  var formatOptions = { weekday: 'long' }; // Set options for displaying the weekday
+  var selectedDate = $(this).attr("data-day");
 
-  // Get and log the day of the week
-  var dayOfWeek = dateObj.toLocaleDateString('en-US', formatOptions);
-  document.getElementById('dayoftheweek').textContent = dayOfWeek;
+// console.log("hi" + selectedDate);
 
-  loadGoals();
 
-  // dateOfWeek.textContent = dayOfWeek; // Display the day of the week in the designated element
+  // var dateObj = new Date(selectedDate);
+  // var formatOptions = {weekday: 'long'};
+  // console.log(dateObj.toLocaleDateString('en-US', formatOptions));
+  // dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
 
-  fillEventSidebar($(this)); // Fill the sidebar with event info
 
-  $(".c-aside__num").text(thisDay); // Display the day number
-  $(".c-aside__month").text(monthText[thisMonth - 1]); // Display the month name
+  fillEventSidebar($(this));
 
-  dataCel.removeClass("isSelected"); // Remove selection from all cells
-  thisEl.addClass("isSelected"); // Add selection to the clicked cell
+  $(".c-aside__num").text(thisDay);
+  $(".c-aside__month").text(monthText[thisMonth - 1]);
+
+  dataCel.removeClass("isSelected");
+  thisEl.addClass("isSelected");
+
 });
-
 
 //function for move the months
 function moveNext(fakeClick, indexNext) {
@@ -244,6 +223,10 @@ function moveNext(fakeClick, indexNext) {
     }
   }
 }
+
+
+
+
 function movePrev(fakeClick, indexPrev) {
   for (var i = 0; i < fakeClick; i++) {
     $(".c-main").css({
@@ -306,31 +289,3 @@ $(".c-aside__month").text(monthText[month - 1]);
 
 
 }
-
-function loadGoals() {
-  fetch('/goalsLoad')
-    .then(response => response.json())
-    .then(goals => {
-      // const taskListContainer = document.getElementById('addTask');
-      // taskListContainer.innerHTML = ''; 
-      const day = document.getElementById('dayoftheweek').textContent;
-      console.log("day" + day + "n")
-      for(let i = 0; i<goals.titles.length; i++)
-      {
-        console.log("hi")
-        // console.log("hi" + goals.titles.length)
-        // console.log("hi" + goals.titles[i])
-        for (let j = 0; j<goals.days[i].length; j++)
-        {
-          console.log("by" + goals.days[j])
-          // console.log(goals.titles[i].length)
-          if(goals.days[j].includes(day))
-          {
-            const goalItem = document.createElement('label');
-            goalItem.innerHTML = `<input type="checkbox" name="goal" /> ${goal.titles[i] || goal}`;
-            askListContainer.appendChild(goalItem);
-          }
-        }
-      }
-    });
-  }
