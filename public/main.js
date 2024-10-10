@@ -26,7 +26,7 @@ const userPoints = async function( event ) {
 
       const text = await response.json();
 
-      textpoints.textContent= text;
+      textpoints.textContent= "EXP: "+ text;
 
 
 }
@@ -72,11 +72,13 @@ const goalsToday = async function( event ) {
         newInput.name = str;
         let str2 = text[i]._id;
         newInput.value = str2;
+        newInput.style = "margin:7px; align-items: start;"
 
         let newLabel = document.createElement('label');
         newLabel.htmlFor = str;
         newLabel.id = str;
         newLabel.textContent = text[i].title;
+        newLabel.style = "";
 
         let newBR = document.createElement('br');
 
@@ -89,7 +91,8 @@ const goalsToday = async function( event ) {
         
         let newInput = document.createElement('input');
         newInput.type = 'submit';
-        newInput.value = "Submit";
+        newInput.value = "Completed A Goal";
+        newInput.style = "margin:7px; background-color:  #ffbee5; border-radius: 15px; color: black; padding: 10px 20px; text-align: center; vertical-align: middle; text-decoration: none; display: inline-block; font-size: 14px; margin: 10px 4px; cursor: pointer;";
         form.appendChild(newInput);
       }
       //<input type="checkbox" id="goal1" name="goal1" value="goal1complete">

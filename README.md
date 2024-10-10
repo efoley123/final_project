@@ -26,11 +26,11 @@ The original plan was to use a different database tool, but we had trouble getti
 One of us had issues with getting the database connection string to communicate with the .env file, which took a while to troubleshoot and sort out.
 
 ## Responsibilities
-Eleanor: Login page, Leaderboard page
+Eleanor: Login page, Leaderboard page, Main.html linking to get the day's current goals and user points
 
 Sophia: Calandar page
 
-Ashley: Home page?
+Ashley: Goal page
 
 Kayla: Conceptually making DB schema, drawings for pet cat, CSS styling
 
