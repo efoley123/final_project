@@ -40,6 +40,8 @@ function getDayOfWeek(date) {
 
 let dayOfWeek = getDayOfWeek(dateObj); // Pass the current date object
 console.log("Today's Day of the Week: " + dayOfWeek); // Log the day of the week to the console
+let dayOfWeekLabel = document.getElementById("weekday")
+dayOfWeekLabel.innerHTML = dayOfWeek
 
 // ------ set default task -------
 function defaultEvents(dataDay,dataName,dataNotes,classTag){
@@ -81,15 +83,15 @@ dataCel.each(function() {
 addBtn.on("click", function() { //WHEN THIS BUTTON IS CLICKED IT GRABS THE GOALS
   winCreator.addClass("isVisible");
   $("body").addClass("overlay");
-  dataCel.each(function() {
-    if ($(this).hasClass("isSelected")) {
-      today = $(this).data("day");
-      document.querySelector('input[type="date"]').value = today;
-    } 
-    // else {
-    //   document.querySelector('input[type="date"]').value = today;
-    // }
-  });
+  // dataCel.each(function() {
+  //   if ($(this).hasClass("isSelected")) {
+  //     today = $(this).data("day");
+  //     document.querySelector('input[type="date"]').value = today;
+  //   } 
+  //   else {
+  //     document.querySelector('input[type="date"]').value = today;
+  //   }
+  // });
 });
 
 closeBtn.on("click", function() {
@@ -97,28 +99,28 @@ closeBtn.on("click", function() {
   $("body").removeClass("overlay");
 });
 saveBtn.on("click", function() {
-  var inputName = $("input[name=name]").val();
-  var inputDate = $("input[name=date]").val();
-  var inputNotes = $("textarea[name=notes]").val();
-  var inputTag = $("select[name=tags]")
-    .find(":selected")
-    .text();
+  // var inputName = $("input[name=name]").val();
+  // var inputDate = $("input[name=date]").val();
+  // var inputNotes = $("textarea[name=notes]").val();
+  // var inputTag = $("select[name=tags]")
+  //   .find(":selected")
+  //   .text();
 
-  dataCel.each(function() {
-    if ($(this).data("day") === inputDate) {
-      if (inputName != null) {
-        $(this).attr("data-name", inputName);
-      }
-      if (inputNotes != null) {
-        $(this).attr("data-notes", inputNotes);
-      }
-      $(this).addClass("task");
-      if (inputTag != null) {
-        $(this).addClass("task--" + inputTag);
-      }
-      fillEventSidebar($(this));
-    }
-  });
+  // dataCel.each(function() {
+  //   if ($(this).data("day") === inputDate) {
+  //     if (inputName != null) {
+  //       $(this).attr("data-name", inputName);
+  //     }
+  //     if (inputNotes != null) {
+  //       $(this).attr("data-notes", inputNotes);
+  //     }
+  //     $(this).addClass("task");
+  //     if (inputTag != null) {
+  //       $(this).addClass("task--" + inputTag);
+  //     }
+  //     fillEventSidebar($(this));
+  //   }
+  // });
 
   winCreator.removeClass("isVisible");
   $("body").removeClass("overlay");
@@ -184,17 +186,20 @@ dataCel.on("click", function() {
   .attr("data-day")
   .slice(5, 7);
 
-  dateOfWeek = document.getElementById('dayoftheweek');
+  dateOfWeek = document.getElementById('weekday');
 
   var selectedDate = $(this).attr("data-day");
 
 // console.log("hi" + selectedDate);
 
 
-  // var dateObj = new Date(selectedDate);
-  // var formatOptions = {weekday: 'long'};
-  // console.log(dateObj.toLocaleDateString('en-US', formatOptions));
-  // dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
+  var dateObj = new Date(selectedDate);
+  var formatOptions = {weekday: 'long'};
+  console.log(dateObj.toLocaleDateString('en-US', formatOptions));
+  dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
+
+  let dayOfWeekLabel = document.getElementById("weekday")
+  dayOfWeekLabel.innerHTML = dateOfWeek.textContent
 
 
   fillEventSidebar($(this));

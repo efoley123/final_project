@@ -218,20 +218,6 @@ app.get( '/', (req,res) => { //
   //res.render( 'login', { msg:'', layout:false })
 })
 
-// app.get('/goalsLoad', async (req, res) => {
-//   const collectionD = await client.db("test").collection("users");
-//   const account = await collectionD.findOne({username: currUser});
-//   if (account.goals) {
-//     res.json(account.goals); 
-//   } else {
-//     res.json([]); 
-//   }
-//   console.log(account.goals);
-//   //this also needs to be dependent on the days but rn im not doing that!!!
-// })
-
-
-
 //TEST THIS
 app.get('/goalsLoad', async (req, res) => {
   const goalsCollection = await client.db("test").collection("goals");
@@ -240,9 +226,6 @@ app.get('/goalsLoad', async (req, res) => {
     const titles = account.map(goal => goal.title);
     const days = account.map(goal => goal.days);
     const arr = [titles, days]; 
-    // console.log(titles)
-    // console.log(days)
-    // console.log(arr)
     res.json(
       {
         titles: titles,
