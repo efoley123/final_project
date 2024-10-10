@@ -491,6 +491,10 @@ app.post('/addGoal', async(req, res) =>{
 
 })
 
+app.get("/getUserID", async (req, res) => {
+  res.json(id); // Return the id as JSON
+})
+
 
 // app.post('/updateGoals', async (req, res) =>)
 // {
@@ -499,6 +503,47 @@ app.post('/addGoal', async(req, res) =>{
 //   //if yes updates accordingly
 //   //else adds to the database
 // }
+
+app.get("/determineCat", async (req, res) => {
+  const goalsCollection = await client.db("test").collection("goals");
+  const authorsGoals = await goalsCollection.find({author: id}).toArray();
+  let numGoals = 0 
+  let numCompletedGoals = 0
+  const currentDate = new Date();// Outputs "Mon Aug 31 2020"
+  const weekdayNumber = currentDate.getDay();
+  const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday",];
+  const day = weekdays[weekdayNumber]
+  for (const goal of authorsGoals) {
+    if (goal.days.includes(day)) {
+      numGoals++
+      if (goal.completed.includes(currentDate.toDateString())) {
+        numCompletedGoals++
+      }
+    }
+  }
+
+  numberToReturn = null
+  if (numCompletedGoals == 0) {
+    numberToReturn = 0 //sad cat
+  } else if (numCompletedGoals > 0 && numCompletedGoals < numGoals) {
+    numberToReturn = 1 //normal cat
+  } else if (numCompletedGoals == numGoals){
+    numberToReturn = 2 //happy cat
+  }
+
+  res.json(numberToReturn)
+
+  
+  //get goals from User goals list
+  // numGoals = goals.length
+  // numCompletedGoals = 0
+  // for each goal in goals
+  //     if (goal.days contains day) {
+  //         if(goal.completed contains currentDate) {
+  //             numCompletedGoals++
+  //         }
+  //     }
+}) 
 
 
 

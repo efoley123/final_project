@@ -20,47 +20,39 @@
 
         <script>
             //import {id} from server.js
-            let id = require("./server.js") 
+            //let id = require("./server.js") 
 
+            const determineCat = async function (event) {
+                const response = await fetch( '/determineCat', {
+                    method:'GET'
+                })
+                const catNumber = await response.json();
+
+                let pictureContainer = document.getElementById("pictureHere")
+                const happyCat = "<div class=\"container\"><img id=\"HappyCat\" src=\"happyCat.png\" width=\"320\" /></div> <figcaption>Happy Cat!!</figcaption> <p>You have completed all of your goals for today :)</p>"
+                const normalCat = "<div class=\"container\"><img id=\"RegularCat\" src=\"normalCat.png\" width=\"320\" /></div> <figcaption>Normal Cat</figcaption> <p>You have made progress on your goals for today but have not completed them all.</p>"
+                const sadCat = "<div class=\"container\"><img id=\"SadCat\" src=\"sadCat.png\" width=\"320\" /></div> <figcaption>Sad Cat :(</figcaption> <p>You did not complete any goals today (or you have no goals for today).</p>"
+                
+                let cat = "placeholder"
+                switch(catNumber) {
+                    case 0:
+                        cat = sadCat
+                        break
+                    case 1:
+                        cat = normalCat
+                        break
+                    case 2:
+                        cat = happyCat
+                }
+                pictureContainer.innerHTML = cat
+            }
+            
             window.onload = async function() {
-                const currentDate = new Date();// Outputs "Mon Aug 31 2020"
-                console.log(currentDate)
-                const weekdayNumber = currentDate.getDay();
-                const weekdays = [
-                    "Sunday",
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                ];
-                console.log(weekdays[weekdayNumber])
-
-                console.log(id)
+                determineCat();
             }
         </script>
 
-
-        <figure>
-            <div class="container"><img id="HappyCat" src="happyCat.png" width="320" /></div>
-            <figcaption>Happy Cat</figcaption>
-        </figure>
-
-        <figure>
-            <img id="SadCat" src="sadCat.png" width="320" />
-            <figcaption>Sad Cat</figcaption>
-        </figure>
-
-        <figure>
-            <img id="RegularCat" src="normalCat.png" width="320" />
-            <figcaption>Regular Cat</figcaption>
-        </figure>
-
-        <p> In my imagination, if you didn't complete a goal today or have no goals today you get Sad Cat.<br>
-         If you completed a goal today you get regualr cat.<br>
-         If you complete all goals that day you get Happy Cat</p>
-
+        <figure id ="pictureHere"></figure>
     </div>
 </body>
 </html>
