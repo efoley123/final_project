@@ -13,6 +13,7 @@
       <button class="button1 is-primary" type = 'submit'>Log Out</button>
     </form>
 
+    <script src="main.js"></script>
   </head>
 
   <div id="mySidenav" class="sidenav">
@@ -43,7 +44,19 @@
 
     <p>Points at the top</p>
 
-    <p>Habit List (cause we ask for your habits which you can input)</p>
+    <p id="points"></p>
+
+    <p>Daily Goals for Today</p>
+    <p style="display: inline">Today's Date is </p> <p id="DateForToday" style="display: inline"></p>
+    <p> - Here is the goals for Today </p>
+
+    <form action="/complete" id="formGoal" method='POST'>
+      
+    </form>
+
+
+
+    <p>Will display todays goals from doing stuff in main.js...... <br></p>
 
     <p>Goal List (cause we ask for your habits which you can input)</p>
     <form action='/goals' method='POST'>
@@ -52,7 +65,9 @@
 
     <p>AI chatbox maybe on the side or the bottom</p>
 
-    <p>Cute Pet you can take care of? Potentially idk how it would look</p>
+    <form action='/mypetpage' method='POST'>
+      <button class="button is-primary" type = 'submit'>My Pet</button>
+    </form>
 
     <p>Link to seperate html page where you can buy certain store items with your points</p>
 
@@ -66,3 +81,4 @@
 
   </div>
   </body>
+  </html>

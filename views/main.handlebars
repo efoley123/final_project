@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Final Project</title>
+    <meta charset="utf-8">
+    <!-- get rid of favicon error -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" type="text/css" href="mainstyle.css">
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <header>CS4241 Final Project</header>
+    <h2>Habit Tracker</h2>
+    <div class="box" style="text-align: center;">
+
+    <form action='/logout' method='POST'>
+      <button class="button is-primary" type = 'submit'>Log Out</button>
+    </form>
+
+    <p>Points at the top</p>
+
+    <p>Daily Goals for Today</p>
+    <p style="display: inline">Today's Date is </p> <p id="DateForToday" style="display: inline"></p>
+    <p> - Here is the goals for Today </p>
+
+    <form action="/complete" id="formGoal" method='POST'>
+      
+    </form>
+
+    <p>
+    {{{msg}}}
+    </p>
+
+
+
+    <p>Habit List (cause we ask for your habits which you can input)</p>
+
+    <p>Goal List (cause we ask for your habits which you can input)</p>
+
+    <form action='/mypetpage' method='POST'>
+      <button class="button is-primary" type = 'submit'>My Pet</button>
+    </form>
+
+    <p>Link to seperate html page where you can buy certain store items with your points</p>
+
+    <form action='/leaderboard' method='POST'>
+      <button class="button is-primary" type = 'submit'>Go See Leaderboard Page</button>
+    </form>
+
+  </div>
+  </body>
+  </html>
