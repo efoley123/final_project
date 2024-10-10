@@ -75,6 +75,7 @@ th {
 }
 
 button {
+    text-align: center;
     background-color: #8aaf7f;
     border-color: #6C4B38;
     color: white;

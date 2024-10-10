@@ -16,17 +16,21 @@ Node.js:
 
 Express: We used express for our server.
 
-Cookies/Handlebars:
+Cookies/Handlebars: We have 3 handlebars. For logging in (if you incorrectly put in your password or username), for signing up (is a user is already in the system or your passwords mismatch), for main (to send a message when checking of you completed a goal)
 
 Mongoose/MongoDB: We wanted to enforce a schema on our database, since we all favor this way of designing databases versus just using normal MongoDB. Mongoose was easy to install, and writing the schemas were pretty easy. There are two schemas: Users and Goals. Users keeps track of the username and password of each user, as well was which goals they have, their score, and their leaderboard number. Goals knows the author of the goal, the title, description, priority, and days of that goal, as well as what days of the week that goal was completed.
 
 ## Challenges
-The original plan was to use a different database tool, but we had trouble getting the connection set up. Since MongoDB worked well in the individual assignments in terms of connecting to the database, we decided to try using Mongoose since we wanted an enforced schema. This was our first time using Mongoose, so there was a little bit of a learning curve, but once one scema was done and objects were able to be added to the database, the second one went smoothly
+The original plan was to use a different database tool, but we had trouble getting the connection set up. Since MongoDB worked well in the individual assignments in terms of connecting to the database, we decided to try using Mongoose since we wanted an enforced schema. This was our first time using Mongoose, so there was a little bit of a learning curve, but once one schema was done and objects were able to be added to the database, the second one went smoothly.
 
 One of us had issues with getting the database connection string to communicate with the .env file, which took a while to troubleshoot and sort out.
 
+A small issue we encountered xwas that the original schema changed once we started writing the code.
+
+Another challege was learning how to write to the html page in javascript. This was a new concept to some of us. Examples of this is in "main.js" which writes inputs, labels, and line breaks.
+
 ## Responsibilities
-Eleanor: Login page, Leaderboard page, Main.html linking to get the day's current goals and user points
+Eleanor: Login page, SignUp page, Leaderboard page, main.html linking to get the day's current goals and user points
 
 Sophia: Calendar page
 
@@ -34,7 +38,7 @@ Ashley: Goal page, display user goals, allow for deletion, creation and modifica
 
 Kayla: Conceptually making DB schema, drawings for pet cat, CSS styling
 
-Laura: Helped Kayla with conceptual DB schema, then implemented database with Mongoose. Also wrote first draft of the README.
+Laura: Pet page. Helped Kayla with conceptual DB schema, then implemented database with Mongoose. Also wrote first draft of the README.
 
 ## Link to Video
 VIDEO LINK:
