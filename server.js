@@ -360,6 +360,17 @@ app.post( '/complete', async (req,res)=> {
   }
   })
 
+  app.get('/getUserPoints', async (req, res) => {
+
+    let account = await userCollection.find({_id: id}).toArray();
+    console.log("get user account for points")
+    console.log(account);
+    console.log(account[0].points);
+    res.json( account[0].points)
+
+
+  })
+
 
 
 run()

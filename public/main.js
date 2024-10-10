@@ -6,6 +6,22 @@ const date = async function( event ) {
     DateForToday.textContent = currentDate;
 }
 
+const userPoints = async function( event ) {
+
+    const textpoints = document.getElementById('points');
+
+
+    const response = await fetch( '/getUserPoints', {
+        method:'GET' //POST is 
+      })
+
+      const text = await response.json();
+
+      textpoints.textContent= text;
+
+
+}
+
 const goalsToday = async function( event ) {
 
     //will query for the goals of the current day
@@ -85,9 +101,12 @@ const someGoalCompleted = async function( event ) {
 window.onload = function() {
     date();
 
+    
+
     const DateForToday = document.getElementById('DateForToday');
 
     goalsToday();
+    userPoints();
     console.log("ran this above");
 
 }
