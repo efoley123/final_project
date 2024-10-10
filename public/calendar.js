@@ -39,7 +39,7 @@ function getDayOfWeek(date) {
 }
 
 let dayOfWeek = getDayOfWeek(dateObj); // Pass the current date object
-console.log("Today's Day of the Week: " + dayOfWeek); // Log the day of the week to the console
+// console.log("Today's Day of the Week: " + dayOfWeek); // Log the day of the week to the console
 let dayOfWeekLabel = document.getElementById("weekday")
 dayOfWeekLabel.innerHTML = dayOfWeek
 
@@ -51,11 +51,6 @@ function defaultEvents(dataDay,dataName,dataNotes,classTag){
   date.addClass("task");
   date.addClass("task--" + classTag);
 }
-//CHANGE THIS FROM EVENTS TO TASKS
-// defaultEvents(today, 'YEAH!','Today is your day','important');
-// defaultEvents('2024-12-25', 'MERRY CHRISTMAS','A lot of gift!!!!','festivity');
-// defaultEvents('2024-05-04', "LUCA'S BIRTHDAY",'Another gifts...?','birthday');
-// defaultEvents('2024-03-03', "MY LADY'S BIRTHDAY",'A lot of money to spent!!!!','birthday');
 
 
 // ------ functions control -------
@@ -186,17 +181,22 @@ dataCel.on("click", function() {
   .attr("data-day")
   .slice(5, 7);
 
-  dateOfWeek = document.getElementById('weekday');
+  var dateOfWeek = document.getElementById('weekday');
 
   var selectedDate = $(this).attr("data-day");
 
   var dateObj = new Date(selectedDate + "T00:00:00");
+  var currDate = dateObj.toDateString();
+  // console.log("hisdsd" + currDate)
+
   var formatOptions = {weekday: 'long'};
-  console.log(dateObj.toLocaleDateString('en-US', formatOptions));
   dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
 
   let dayOfWeekLabel = document.getElementById("weekday")
   dayOfWeekLabel.innerHTML = dateOfWeek.textContent
+
+  let currDayLabel = document.getElementById("selectedDay")
+  currDayLabel.innerHTML = currDate
 
 
   fillEventSidebar($(this));
