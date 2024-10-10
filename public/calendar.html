@@ -130,7 +130,7 @@
       <div class="c-calendar__style c-aside">
         <form id="goalsForm" action='/goalsLoad' method='GET'>
           <label id = "weekday" style="visibility: hidden;"> </label>
-        <a class="c-add o-btn js-task__add" href="javascript:;" onclick="loadGoals()">edit goal <span class="fa fa-plus"></span></a>
+        <a class="c-add o-btn js-task__add" href="javascript:;" onclick="loadGoals()">see goal <span class="fa fa-plus"></span></a>
         </form>
         <div class="c-aside__day">
           <span class="c-aside__num"></span> <span class="c-aside__month"></span>
@@ -206,12 +206,27 @@
     if (checkbox.checked) {
       checkedGoals.push(checkbox.nextSibling.textContent.trim());
     }
-    console.log(checkedGoals)
    });
-    //first checks to see what has been checked
-    //calls a function which first see if that goal has already been completed on that date 
-    //adds those tasks to the database
+   console.log(checkedGoals)
+   fetch('/checkedGoals', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' // Set content type to JSON
+        },
+        body: JSON.stringify({ goals: checkedGoals }) // Convert the array to a JSON string
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the JSON response
+    })
+
   }
+  //   //first checks to see what has been checked
+  //   //calls a function which first see if that goal has already been completed on that date 
+  //   //adds those tasks to the database
+  // }
 
 
 
