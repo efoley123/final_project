@@ -1,3 +1,11 @@
+body {
+    background-color: #BDDAB4; 
+    background: repeating-linear-gradient(45deg, #FFCDDF,
+    #FFCDDF 30px,
+    #f1b4ca 30px,
+    #f1b4ca 60px );
+}
+
 table {
     width: 80%;
     border-collapse: collapse;
@@ -9,12 +17,16 @@ th, td {
     text-align: left;
 }
 th {
-    background-color: #BDDAB4;
+    background-color: #6C4B38;
     color: white;
 }
 .button-container {
     text-align: center;
     margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    
 }
 .overlay {
     display: none;
@@ -28,7 +40,7 @@ th {
     align-items: center; 
 }
 .popup {
-    background: white;
+    background: #BDDAB4; 
     padding: 20px;
     border-radius: 10px;
     width: 300px;
@@ -39,11 +51,11 @@ th {
     margin-bottom: 20px;
     font-size: 24px;
     text-align: center;
-    color: #333;
+    color: #000000;
 }
 .popup label {
     font-weight: 600;
-    color: #555;
+    color: #000000;
 }
 .popup input {
     margin-bottom: 16px;
@@ -53,10 +65,21 @@ th {
     border-radius: 5px;
 }
 .popup button {
-    background-color: #28a745;
+    background-color: #6C4B38;
     color: white;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+button {
+    background-color: #8aaf7f;
+    border-color: #6C4B38;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10%;
 }
