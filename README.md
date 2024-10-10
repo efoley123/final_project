@@ -30,7 +30,7 @@ Eleanor: Login page, Leaderboard page, Main.html linking to get the day's curren
 
 Sophia: Calendar page
 
-Ashley: Goal page
+Ashley: Goal page, display user goals, allow for deletion, creation and modification.
 
 Kayla: Conceptually making DB schema, drawings for pet cat, CSS styling
 
