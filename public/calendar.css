@@ -111,6 +111,27 @@ a {
 .resetDefaultApparence::-ms-expand {
   display: none;
 }
+
+.button-container {
+  text-align: center;
+  padding: -10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+button {
+  background-color: #6C4B38;
+  font-family: 'Lato';
+  text-transform: uppercase;
+  border-radius: 15px;
+  color: white;
+  padding: 10px;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 /* STYLE ===========================================================*/
 header {
   position: fixed;
@@ -444,7 +465,8 @@ header > .wrapper a {
 }
 .c-aside__day {
   font-size: 28px;
-  margin: 50px 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 .c-aside__day .c-aside__num {
   font-family: 'Lato', sans-serif;

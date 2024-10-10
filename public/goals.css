@@ -75,6 +75,7 @@ th {
 }
 
 button {
+    text-align: center;
     background-color: #8aaf7f;
     border-color: #6C4B38;
     color: white;
@@ -83,4 +84,9 @@ button {
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 10%;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Optional: Add some space above the button */
 }

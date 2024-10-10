@@ -120,6 +120,7 @@
         </div>
         <span class="c-paginator__year">2024</span>
       </div>
+
       <div class="c-sort">
         <a class="o-btn c-today__btn" href="javascript:;">TODAY</a>
       </div>
@@ -128,13 +129,23 @@
   <div class="wrapper">
     <div class="c-calendar">
       <div class="c-calendar__style c-aside">
+
+        <form action='/home' method='POST'>
+          <div class="button-container">
+              <button class="button" type='submit'>Go Home</button>
+          </div>
+          </form>
+
         <form id="goalsForm" action='/goalsLoad' method='GET'>
           <label id = "weekday" style="visibility: hidden;"> </label>
-        <a class="c-add o-btn js-task__add" href="javascript:;" onclick="loadGoals()">edit goal <span class="fa fa-plus"></span></a>
-        </form>
         <div class="c-aside__day">
           <span class="c-aside__num"></span> <span class="c-aside__month"></span>
         </div>
+      </form>
+      
+      <a class="c-add o-btn js-task__add" href="javascript:;" onclick="loadGoals()">See goals <span class="fa fa-plus"></span></a>
+      </form>
+
         <div class="c-aside__taskList">
         </div>
       </div>
