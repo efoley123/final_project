@@ -218,7 +218,6 @@ app.get( '/', (req,res) => { //
   //res.render( 'login', { msg:'', layout:false })
 })
 
-//TEST THIS
 app.get('/goalsLoad', async (req, res) => {
   const goalsCollection = await client.db("test").collection("goals");
   const account = await goalsCollection.find({author: id}).toArray();
@@ -239,13 +238,14 @@ app.get('/goalsLoad', async (req, res) => {
 
 
 
-// app.post('/updateGoals', async (req, res) =>)
-// {
-//   //for loop
-//   //sees if there is a goal for that day 
-//   //if yes updates accordingly
-//   //else adds to the database
-// }
+
+
+app.post('/updateGoals', async (req, res) => 
+{
+  const { goals } = req.body;
+  console.log(goals)
+
+})
 
 
 

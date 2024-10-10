@@ -211,8 +211,44 @@
     //first checks to see what has been checked
     //calls a function which first see if that goal has already been completed on that date 
     //adds those tasks to the database
-
   }
+
+
+
+  // function isChecked()
+  // {
+  //   const checkboxes = document.querySelectorAll('#addTask input[type="checkbox"]');
+  //   const checkedGoals = [];
+  //   checkboxes.forEach(checkbox => {
+  //   if (checkbox.checked) {
+  //     checkedGoals.push(checkbox.nextSibling.textContent.trim());
+  //   }
+    //Send the checkedGoals to the server
+    // fetch('/checkedGoals', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json' // Set content type to JSON
+    //     },
+    //     body: JSON.stringify({ goals: checkedGoals }) // Convert the array to a JSON string
+    // })
+    // .then(response => {
+    //     if (!response.ok) {
+    //         throw new Error('Network response was not ok');
+    //     }
+    //     return response.json(); // Parse the JSON response
+    // })
+    // console.log(checkedGoals)
+  //  });
+  // }
+  //have access to the current date (sept 5, 2024, etc)
+    //return the date as well as the checked goals to the server
+    //in server.js goes through the goals and checks to see that goal has already been completed on that day
+    //depending on this adds the goal to the database
+
+
+
+
+
   </script>
 </body>
 </html>

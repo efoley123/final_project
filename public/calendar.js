@@ -195,11 +195,27 @@ dataCel.on("click", function() {
 
   var dateObj = new Date(selectedDate);
   var formatOptions = {weekday: 'long'};
-  console.log(dateObj.toLocaleDateString('en-US', formatOptions));
+  // console.log(dateObj.toLocaleDateString('en-US', formatOptions));
   dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
 
   let dayOfWeekLabel = document.getElementById("weekday")
   dayOfWeekLabel.innerHTML = dateOfWeek.textContent
+
+
+
+  // dateOfWeek = document.getElementById('weekday');
+
+  // var selectedDate = $(this).attr("data-day");
+
+  // var dateObj = new Date(selectedDate);
+  // var formatOptions = {weekday: 'long'};
+
+  // dateOfWeek = dateObj.toLocaleDateString('en-US', formatOptions);
+  // dateObj.setDate(dateObj.getDate() + 1);
+  // var newDateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
+  
+  // let dayOfWeekLabel = document.getElementById("weekday")
+  // dayOfWeekLabel.innerHTML = newDateOfWeek.textContent
 
 
   fillEventSidebar($(this));
