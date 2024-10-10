@@ -6,29 +6,24 @@
   z-index: 1; 
   top: 0; 
   left: 0;
-  background-color: #111; 
+  background-color: #DBFFBE; 
   overflow-x: hidden; 
   padding-top: 60px; 
   transition: 0.5s; 
-}
-
-/* Page content */
-.main {
-  margin-left: 100px; /* Same as the width of the sidenav */
 }
 
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #6C4B38;
   display: block;
   transition: 0.3s;
 }
 
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: #FFCDDF;
 }
 
 header {
@@ -49,6 +44,11 @@ h2 {
   border-radius: 20%;
   background-color: #E1FFFE;
   color: #000000;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
 }
 
 body {
@@ -73,8 +73,8 @@ body {
     background-color: #E1FFFE;
   }
 
-  .button1 {
-    background-color: #E1FFFE;
+  .logoutbutton {
+    background-color: #DBFFBE;
     position: absolute;
     top: 0;
     right: 0;
@@ -90,8 +90,8 @@ body {
     cursor: pointer;
   }
 
-  .button2 {
-      background-color: #E1FFFE;
+  .openbutton {
+      background-color: #DBFFBE;
       position: absolute;
       top: 0;
       left: 0;
@@ -107,8 +107,8 @@ body {
       cursor: pointer;
     }
 
-  .button {
-      background-color: #FFCDDF;
+    button {
+      background-color: #DBFFBE;
       border-radius: 15px;
       color: black;
       padding: 10px 20px;
@@ -121,9 +121,3 @@ body {
       cursor: pointer;
     }
 
-
-  table {
-    margin:auto;
-    padding:10px;
-    height:auto;
-}

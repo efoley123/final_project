@@ -10,21 +10,24 @@
     <script src="main.js"></script>
 
     <form action='/logout' method='POST'>
-      <button class="button1 is-primary" type = 'submit'>Log Out</button>
+      <button class="logoutbutton" type = 'submit'>Log Out</button>
     </form>
 
+    <script src="main.js"></script>
   </head>
 
   <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10540;</a>
+    <a href="goals.html">Goals</a>
+    <a href="mypet.html">My Pet</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="calendar.html">Calendar</a>
   </div>
 
 
-  <button onclick="openNav()">Open Navigation</button>
+  <button class="openbutton" onclick="openNav()">Open Navigation</button>
+
+  <div id="main">
 
   <body>
     <header>CS4241 Final Project
@@ -32,40 +35,38 @@
     </header>
     <div class="box" style="text-align: center;">
 
-    <box>
-      <p>EXP: *insert function result here*</p>
-    </box>
+  <box>
+      <p align="right"><b>EXP: <p id="points"></p> </b></p>
 
-    <p>Goals
-      *insert table here with complete/incomplete column that can be checked/unchecked?*
-    </p>
-    <p>Log In Page was before this</p>
+    <p style="display: inline"><b>Today's Date is </p> <p id="DateForToday" style="display: inline"></b></p>
+    <p> - Your Goals For Today - </p>
 
-    <p>Points at the top</p>
-
-    <p>Habit List (cause we ask for your habits which you can input)</p>
-
-    <p>Goal List (cause we ask for your habits which you can input)</p>
-    <form action='/goals' method='POST'>
-      <button class="button is-primary" type = 'submit'>Go See Goals Page</button>
+    <form action="/complete" id="formGoal" method='POST'>
     </form>
 
-    <p>AI chatbox maybe on the side or the bottom</p>
+    <form action='/goals' method='POST'>
+      <button class="button is-primary" type = 'submit'>My Goals</button>
+    </form>
 
-    <p>Cute Pet you can take care of? Potentially idk how it would look</p>
+    <p>My Pet</p>
 
-    <p>Link to seperate html page where you can buy certain store items with your points</p>
+    <form action='/mypetpage' method='POST'>
+      <button class="button is-primary" type = 'submit'>My Pet</button>
+    </form>
+
+    <p>See How You Compare on The Leaderboard</p>
 
     <form action='/leaderboard' method='POST'>
       <button class="button is-primary" type = 'submit'>Leaderboard</button>
     </form>
 
-    <form action='/mypetpage' method='POST'>
-      <button class="button is-primary" type = 'submit'>Pet</button>
-    </form>
-    <p>Link to leaderboard page</p>
-    
-    <a href="calendar.html">Go to Calendar Page </a>
+    <p>Go To The Calendar</p>
 
+    <form action='/calendar' method='POST'>
+      <button class="button is-primary" type = 'submit'>Calendar</button>
+    </form>
+
+  </box>
   </div>
   </body>
+  </html>

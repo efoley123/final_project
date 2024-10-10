@@ -125,6 +125,11 @@ app.post( '/createAccount', (req,res)=> {
  res.redirect( 'signup.html' )
 })
 
+app.post( '/goals', (req,res)=> {
+  res.redirect( 'goals.html' )
+  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
+ })
+
 
 //getting all goals
 app.get('/goals', async (req, res) => {
@@ -199,7 +204,7 @@ app.post( '/login', async (req,res)=> {
      if (req.body.password ===docs[i].password && req.body.username ===docs[i].username) {
          loginSuccessful = 1;
          userId = docs[i]._id;
-        //  console.log(req.body.username)
+         console.log(req.body.username)
          collectionName = req.body.username;
          collection = await client.db("users").collection(req.body.username);
      }
@@ -207,15 +212,8 @@ app.post( '/login', async (req,res)=> {
 
 
 if(loginSuccessful) {
-  currUser = req.body.username
-  id = userId
-  console.log(id)
-
-
-  // const user = await collection.findOne({ username: currUser }, { projection: { _id: 1 } });
-  // id = currUser._id
-  // console.log(id)
-
+  currUser = req.body.username;//setting the global variables correctly
+  id = userId;
 
  req.session.login = true
  res.redirect( 'main.html' )
@@ -245,11 +243,6 @@ app.post( '/mypetpage', (req,res)=> {
 app.post( '/leaderboard', (req,res)=> {
   res.redirect( 'leaderboard.html' )
 })
-
- app.post( '/goals', (req,res)=> {
-  res.redirect( 'goals.html' )
-  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
- })
 
 // route to get all docs
 app.get("/lbdisplay", async (req, res) => {
@@ -321,21 +314,24 @@ app.post("/getCurrectGoalsForToday", async (req, res) => {
 app.post( '/complete', async (req,res)=> {
   //will have to change in goals that it is complete now
   console.log("We completed 1 of the goals")
-  
+  let correctAdd = 1;
   const goals = req.body;
   const keys = Object.keys(goals);
   console.log("here is keys")
   console.log(keys);
-  if (req.body != null) {
+  console.log(keys.length);
+  if (keys.length != 0) {
     const goalsCollection = await client.db("test").collection("goals");
     
     
     for (i=0; i<keys.length;i++) {
       //console.log(goals[i]);
-      
-      let string = "goal" + [i];
+      let addCurrentGoal = 1;
       let account = await userCollection.find({_id: id}).toArray();
       let goal = await goalsCollection.find({_id:  new ObjectId( goals[keys[i]])}).toArray();
+
+
+      
 
       console.log("here is goal \n");
       console.log(goal[0])
@@ -344,8 +340,19 @@ app.post( '/complete', async (req,res)=> {
       console.log(array);
       let date = new Date();
       console.log("here is date " + date + "\n");
+      
+      for (j=0;j<array.length;j++) {
+        if (array[j]===date.toDateString()) {
+          //we do not want to add it and give points
+          correctAdd=0;
+          addCurrentGoal = 0;
+  
+        }
+      }
+      if (addCurrentGoal===1) {
       array.push(date.toDateString());
       console.log(array);
+
       let result = await goalsCollection.updateOne(
          { _id: new ObjectId( goals[keys[i]] ) },
          { $set:{ completed:array } })
@@ -357,14 +364,33 @@ app.post( '/complete', async (req,res)=> {
          let result2 = await userCollection.updateOne(
            { _id: new ObjectId( id ) },
            { $set:{ points:totalPoints} })
+         
     }
+  }
+
+    if (correctAdd===0) {
+
+      res.render('main', { msg:'you tried to complete a goal you already completed so we did not double count it', layout:false })
+    } else if (correctAdd===1) {
     console.log("updated individual goal");
     //I can then do a handlebars to say goal is now completed    
     res.render('main', { msg:'successfully completed a goal', layout:false })
+    }
   }
   else {
     res.render('main', { msg:'you did not select a goal to complete', layout:false })
   }
+  })
+
+  app.get('/getUserPoints', async (req, res) => {
+
+    let account = await userCollection.find({_id: id}).toArray();
+    console.log("get user account for points")
+    console.log(account);
+    console.log(account[0].points);
+    res.json( account[0].points)
+
+
   })
 
 
