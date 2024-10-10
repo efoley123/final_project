@@ -17,10 +17,11 @@
   </head>
 
   <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&#10540;</a>
     <a href="goals.html">Goals</a>
-    <a href="calendar.html">Calendar</a>
+    <a href="mypet.html">My Pet</a>
     <a href="leaderboard.html">Leaderboard</a>
+    <a href="calendar.html">Calendar</a>
   </div>
 
 
@@ -34,57 +35,38 @@
     </header>
     <div class="box" style="text-align: center;">
 
-    <box>
-      <p align="right"><b>EXP: *insert function result here*</b></p>
+  <box>
+      <p align="right"><b>EXP: <p id="points"></p> </b></p>
 
-    <p align="left"> <b>Goals</b></p>  
-    <p align="left">
-      *insert table here with complete/incomplete column that can be checked/unchecked?*
-    </p>
-
-  </box>
-
-  </div>
-  </body>
-</div>
-</html>
-    <p>Points at the top</p>
-
-    <p id="points"></p>
-
-    <p>Daily Goals for Today</p>
-    <p style="display: inline">Today's Date is </p> <p id="DateForToday" style="display: inline"></p>
-    <p> - Here is the goals for Today </p>
+    <p style="display: inline"><b>Today's Date is </p> <p id="DateForToday" style="display: inline"></b></p>
+    <p> - Your Goals For Today - </p>
 
     <form action="/complete" id="formGoal" method='POST'>
-      
     </form>
 
-
-
-    <p>Will display todays goals from doing stuff in main.js...... <br></p>
-
-    <p>Goal List (cause we ask for your habits which you can input)</p>
     <form action='/goals' method='POST'>
-      <button class="button is-primary" type = 'submit'>Go See Goals Page</button>
+      <button class="button is-primary" type = 'submit'>My Goals</button>
     </form>
 
-    <p>AI chatbox maybe on the side or the bottom</p>
+    <p>My Pet</p>
 
     <form action='/mypetpage' method='POST'>
       <button class="button is-primary" type = 'submit'>My Pet</button>
     </form>
 
-    <p>Link to seperate html page where you can buy certain store items with your points</p>
+    <p>See How You Compare on The Leaderboard</p>
 
-    <form action='leaderboard.html' method='POST'>
+    <form action='/leaderboard' method='POST'>
       <button class="button is-primary" type = 'submit'>Leaderboard</button>
     </form>
 
-    <p>Link to leaderboard page</p>
-    
-    <a href="calendar.html">Go to Calendar Page </a>
+    <p>Go To The Calendar</p>
 
+    <form action='/calendar' method='POST'>
+      <button class="button is-primary" type = 'submit'>Calendar</button>
+    </form>
+
+  </box>
   </div>
   </body>
   </html>

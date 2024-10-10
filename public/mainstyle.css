@@ -106,3 +106,18 @@ body {
       margin: 10px 4px;
       cursor: pointer;
     }
+
+    button {
+      background-color: #DBFFBE;
+      border-radius: 15px;
+      color: black;
+      padding: 10px 20px;
+      text-align: center;
+      vertical-align: middle;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 10px 4px;
+      cursor: pointer;
+    }
+
