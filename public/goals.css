@@ -85,3 +85,8 @@ button {
     padding-bottom: 5px;
     border-radius: 10%;
 }
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Optional: Add some space above the button */
+}
