@@ -47,7 +47,7 @@ const goalsToday = async function( event ) {
       ];
 
     const input = weekdays[weekdayNumber],
-          json = { "weekdayName": "Monday"},
+          json = { "weekdayName": input},
           body = JSON.stringify( json )
 
     const response = await fetch( '/getCurrectGoalsForToday', {
