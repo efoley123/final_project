@@ -404,12 +404,12 @@ header > .wrapper a {
 .c-cal__cel.isSelected p {
   background: #ffcddf;
 }
-.c-cal__cel.isToday {
+/* .c-cal__cel.isToday {
   background-color: rgba(245, 113, 112, 0.2);
-}
-.c-cal__cel.isToday p {
+} */
+/* .c-cal__cel.isToday p {
   background: rgba(245, 113, 112, 0.4);
-}
+} */
 .c-cal__cel.other_month {
   color: rgba(255, 255, 255, 0.2);
 }

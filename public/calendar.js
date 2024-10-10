@@ -7,9 +7,9 @@ window.onload = function ()
 var monthEl = $(".c-main");
 var dataCel = $(".c-cal__cel");
 var dateObj = new Date();
-var month = dateObj.getUTCMonth() + 1;
-var day = dateObj.getUTCDate();
-var year = dateObj.getUTCFullYear();
+var month = dateObj.getMonth() + 1;
+var day = dateObj.getDate();
+var year = dateObj.getFullYear();
 var monthText = [
   "January",
   "February",
@@ -33,6 +33,15 @@ var winCreator = $(".js-task__creator");
 var inputDate = $(this).data();
 today = year + "-" + month + "-" + day;
 
+function getDayOfWeek(date) {
+  var options = { weekday: 'long' }; // Format options for long weekday name
+  return date.toLocaleDateString('en-US', options);
+}
+
+let dayOfWeek = getDayOfWeek(dateObj); // Pass the current date object
+console.log("Today's Day of the Week: " + dayOfWeek); // Log the day of the week to the console
+let dayOfWeekLabel = document.getElementById("weekday")
+dayOfWeekLabel.innerHTML = dayOfWeek
 
 // ------ set default task -------
 function defaultEvents(dataDay,dataName,dataNotes,classTag){
@@ -74,42 +83,44 @@ dataCel.each(function() {
 addBtn.on("click", function() { //WHEN THIS BUTTON IS CLICKED IT GRABS THE GOALS
   winCreator.addClass("isVisible");
   $("body").addClass("overlay");
-  dataCel.each(function() {
-    if ($(this).hasClass("isSelected")) {
-      today = $(this).data("day");
-      document.querySelector('input[type="date"]').value = today;
-    } else {
-      document.querySelector('input[type="date"]').value = today;
-    }
-  });
+  // dataCel.each(function() {
+  //   if ($(this).hasClass("isSelected")) {
+  //     today = $(this).data("day");
+  //     document.querySelector('input[type="date"]').value = today;
+  //   } 
+  //   else {
+  //     document.querySelector('input[type="date"]').value = today;
+  //   }
+  // });
 });
+
 closeBtn.on("click", function() {
   winCreator.removeClass("isVisible");
   $("body").removeClass("overlay");
 });
 saveBtn.on("click", function() {
-  var inputName = $("input[name=name]").val();
-  var inputDate = $("input[name=date]").val();
-  var inputNotes = $("textarea[name=notes]").val();
-  var inputTag = $("select[name=tags]")
-    .find(":selected")
-    .text();
+  // var inputName = $("input[name=name]").val();
+  // var inputDate = $("input[name=date]").val();
+  // var inputNotes = $("textarea[name=notes]").val();
+  // var inputTag = $("select[name=tags]")
+  //   .find(":selected")
+  //   .text();
 
-  dataCel.each(function() {
-    if ($(this).data("day") === inputDate) {
-      if (inputName != null) {
-        $(this).attr("data-name", inputName);
-      }
-      if (inputNotes != null) {
-        $(this).attr("data-notes", inputNotes);
-      }
-      $(this).addClass("task");
-      if (inputTag != null) {
-        $(this).addClass("task--" + inputTag);
-      }
-      fillEventSidebar($(this));
-    }
-  });
+  // dataCel.each(function() {
+  //   if ($(this).data("day") === inputDate) {
+  //     if (inputName != null) {
+  //       $(this).attr("data-name", inputName);
+  //     }
+  //     if (inputNotes != null) {
+  //       $(this).attr("data-notes", inputNotes);
+  //     }
+  //     $(this).addClass("task");
+  //     if (inputTag != null) {
+  //       $(this).addClass("task--" + inputTag);
+  //     }
+  //     fillEventSidebar($(this));
+  //   }
+  // });
 
   winCreator.removeClass("isVisible");
   $("body").removeClass("overlay");
@@ -119,12 +130,12 @@ saveBtn.on("click", function() {
 //fill sidebar event info
 function fillEventSidebar(self) {
   $(".c-aside__task").remove();
-  // var thisName = self.attr("data-name");
-  // var thisNotes = self.attr("data-notes");
+  var thisName = self.attr("data-name");
+  var thisNotes = self.attr("data-notes");
   var thisTaskCompleted = self.hasClass("task--completed");
-  // var thisImportant = self.hasClass("task--important");
-  // var thisBirthday = self.hasClass("task--birthday");
-  // var thisFestivity = self.hasClass("task--festivity");
+  var thisImportant = self.hasClass("task--important");
+  var thisBirthday = self.hasClass("task--birthday");
+  var thisFestivity = self.hasClass("task--festivity");
   var thisTask = self.hasClass("task");
   
   switch (true) {
@@ -175,6 +186,19 @@ dataCel.on("click", function() {
   .attr("data-day")
   .slice(5, 7);
 
+  dateOfWeek = document.getElementById('weekday');
+
+  var selectedDate = $(this).attr("data-day");
+
+  var dateObj = new Date(selectedDate + "T00:00:00");
+  var formatOptions = {weekday: 'long'};
+  console.log(dateObj.toLocaleDateString('en-US', formatOptions));
+  dateOfWeek.textContent = dateObj.toLocaleDateString('en-US', formatOptions);
+
+  let dayOfWeekLabel = document.getElementById("weekday")
+  dayOfWeekLabel.innerHTML = dateOfWeek.textContent
+
+
   fillEventSidebar($(this));
 
   $(".c-aside__num").text(thisDay);
@@ -201,6 +225,10 @@ function moveNext(fakeClick, indexNext) {
     }
   }
 }
+
+
+
+
 function movePrev(fakeClick, indexPrev) {
   for (var i = 0; i < fakeClick; i++) {
     $(".c-main").css({
