@@ -740,7 +740,7 @@ app.post('/checkedGoals', async (req, res) =>
     let completedSection = dbGoal.completed
     // if(!completedSection.includes(date)){
     const res = await goalsCollection.updateOne({ _id: new ObjectId(ids[i]), completed: { $ne: date } }, {
-      $set: {
+      $addToSet: {
         completed: [date]
       }
 
