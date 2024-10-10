@@ -269,7 +269,7 @@ app.get("/lbdisplay", async (req, res) => {
       let highest = -1;
       let index = 0;
       for (let j =0;j<arrayPoints.length;j++) {
-        if (highest>arrayPoints[j]) {
+        if (arrayPoints[j]>highest) {
           highest = arrayPoints[j];
           index = j;
         }
