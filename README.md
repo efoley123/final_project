@@ -16,7 +16,7 @@ Node.js:
 
 Express: We used express for our server.
 
-Cookies/Handlebars:
+Cookies/Handlebars: We have 3 handlebars. For logging in (if you incorrectly put in your password or username), for signing up (is a user is already in the system or your passwords mismatch), for main (to send a message when checking of you completed a goal)
 
 Mongoose/MongoDB: We wanted to enforce a schema on our database, since we all favor this way of designing databases versus just using normal MongoDB. Mongoose was easy to install, and writing the schemas were pretty easy. There are two schemas: Users and Goals. Users keeps track of the username and password of each user, as well was which goals they have, their score, and their leaderboard number. Goals knows the author of the goal, the title, description, priority, and days of that goal, as well as what days of the week that goal was completed.
 
