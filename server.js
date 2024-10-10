@@ -126,6 +126,11 @@ app.post( '/createAccount', (req,res)=> {
  res.redirect( 'signup.html' )
 })
 
+app.post( '/goals', (req,res)=> {
+  res.redirect( 'goals.html' )
+  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
+ })
+
 
 //getting all goals
 app.get('/goals', async (req, res) => {
@@ -200,11 +205,7 @@ app.post( '/login', async (req,res)=> {
      if (req.body.password ===docs[i].password && req.body.username ===docs[i].username) {
          loginSuccessful = 1;
          userId = docs[i]._id;
-<<<<<<< HEAD
-        //  console.log(req.body.username)
-=======
          console.log(req.body.username)
->>>>>>> eleanor-br
          collectionName = req.body.username;
          collection = await client.db("users").collection(req.body.username);
      }
@@ -212,20 +213,8 @@ app.post( '/login', async (req,res)=> {
 
 
 if(loginSuccessful) {
-<<<<<<< HEAD
-  currUser = req.body.username
-  id = userId
-  console.log(id)
-
-
-  // const user = await collection.findOne({ username: currUser }, { projection: { _id: 1 } });
-  // id = currUser._id
-  // console.log(id)
-
-=======
   currUser = req.body.username;//setting the global variables correctly
   id = userId;
->>>>>>> eleanor-br
 
  req.session.login = true
  res.redirect( 'main.html' )
