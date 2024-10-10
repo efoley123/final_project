@@ -5,7 +5,6 @@ const User = require('./userSchema.js')
 let currUser = null
 let id = null
 
-
 const express = require("express"),
      { MongoClient, ObjectId } = require("mongodb"),//objectID allows us to make a key and access things
      app = express()
@@ -243,8 +242,7 @@ app.post( '/mypetpage', (req,res)=> {
 
 app.post( '/leaderboard', (req,res)=> {
   res.redirect( 'leaderboard.html' )
-  //would also rechange a global variable if we start saving a global variable which knows what user is logged in
- })
+})
 
 // route to get all docs
 app.get("/lbdisplay", async (req, res) => {
@@ -519,6 +517,10 @@ app.post('/addGoal', async(req, res) =>{
 
 })
 
+app.get("/getUserID", async (req, res) => {
+  res.json(id); // Return the id as JSON
+})
+
 
 // app.post('/updateGoals', async (req, res) =>)
 // {
@@ -527,6 +529,47 @@ app.post('/addGoal', async(req, res) =>{
 //   //if yes updates accordingly
 //   //else adds to the database
 // }
+
+app.get("/determineCat", async (req, res) => {
+  const goalsCollection = await client.db("test").collection("goals");
+  const authorsGoals = await goalsCollection.find({author: id}).toArray();
+  let numGoals = 0 
+  let numCompletedGoals = 0
+  const currentDate = new Date();// Outputs "Mon Aug 31 2020"
+  const weekdayNumber = currentDate.getDay();
+  const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday",];
+  const day = weekdays[weekdayNumber]
+  for (const goal of authorsGoals) {
+    if (goal.days.includes(day)) {
+      numGoals++
+      if (goal.completed.includes(currentDate.toDateString())) {
+        numCompletedGoals++
+      }
+    }
+  }
+
+  numberToReturn = null
+  if (numCompletedGoals == 0) {
+    numberToReturn = 0 //sad cat
+  } else if (numCompletedGoals > 0 && numCompletedGoals < numGoals) {
+    numberToReturn = 1 //normal cat
+  } else if (numCompletedGoals == numGoals){
+    numberToReturn = 2 //happy cat
+  }
+
+  res.json(numberToReturn)
+
+  
+  //get goals from User goals list
+  // numGoals = goals.length
+  // numCompletedGoals = 0
+  // for each goal in goals
+  //     if (goal.days contains day) {
+  //         if(goal.completed contains currentDate) {
+  //             numCompletedGoals++
+  //         }
+  //     }
+}) 
 
 
 
