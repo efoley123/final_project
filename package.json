@@ -21,7 +21,7 @@
       "mongoose": "^8.7.1"
     },
     "engines": {
-        "node": "16.x"
+        "node": "22.x"
     },
     "repository": {
         "url": "https://glitch.com/edit/#!/hello-express"
