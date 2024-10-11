@@ -177,22 +177,29 @@
     <div class="c-task__creator c-calendar__style js-task__creator">
       <button href="javascript:;" class="o-btn js-task__close">CLOSE <span class="fa fa-close"></span></button>
       <form id="addTask"> </form>
-      <button href="javascript:;" class="o-btn js-task__save" onclick = "isChecked()">SAVE <span class="fa fa-save"></span></button>
+      <form id="updatedGoalsForm">
+        <button href="javascript:;" class="o-btn js-task__save" id="saveTask">SAVE <span class="fa fa-save"></span></button>
+      </form>
     </div>
+    <label id = "selectedDay" style="visibility: hidden;"> </label>
   </div>
 
 
   <script>
+  let goalId = []
   function loadGoals() {
+    goalId = []
   fetch('/goalsLoad')
     .then(response => response.json())
     .then(goals => {
       const taskListContainer = document.getElementById('addTask');
       taskListContainer.innerHTML = ''; 
       const day = document.getElementById('weekday').textContent;
-      console.log("day : " + day + " n")
+      // console.log("day : " + day + " n")
+      console.log(goals)
       for(let i = 0; i<goals.titles.length; i++)
       {
+        console.log(goals._id[i])
         // console.log("hi" + goals.titles.length)
         // console.log("hi" + goals.titles[i])
         for (let j = 0; j<goals.days[i].length; j++)
@@ -204,40 +211,64 @@
             const goalItem = document.createElement('label');
             goalItem.innerHTML = `<input type="checkbox" name="goal" /> ${goals.titles[i]}`;
             taskListContainer.appendChild(goalItem);
+            //goalId.push(goals.id[i])
+            goalItem.setAttribute('data', goals._id[i])
+
+
           }
         }
       }
+      console.log(goalId)
     });
   }
-  function isChecked()
+  function isChecked(e)
   {
+    e.preventDefault();
+    const todaysValue = document.getElementById('selectedDay').textContent;
+    console.log("check" + todaysValue)
     const checkboxes = document.querySelectorAll('#addTask input[type="checkbox"]');
-    const checkedGoals = [];
+    let checkedGoals = [];
+    let goalIds = [];
+
     checkboxes.forEach(checkbox => {
-    if (checkbox.checked) {
-      checkedGoals.push(checkbox.nextSibling.textContent.trim());
-    }
-   });
-   console.log(checkedGoals)
+      if (checkbox.checked) { 
+        const goalLabel = checkbox.parentElement;
+        const goalId = goalLabel.getAttribute('data');
+
+        checkedGoals.push(checkbox.nextSibling.textContent.trim());
+        goalIds.push(goalId);
+      }
+    });
+    console.log(checkedGoals)
+    console.log('Goal IDs:', goalIds);
    fetch('/checkedGoals', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json' // Set content type to JSON
         },
-        body: JSON.stringify({ goals: checkedGoals }) // Convert the array to a JSON string
+        body: JSON.stringify({ goals: checkedGoals,  goalIds: goalIds, date: todaysValue }) // Convert the array to a JSON string
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json(); // Parse the JSON response
-    })
-
+    }).then(data => {
+    console.log('Server response:', data);
+    // Handle the response from the server (if needed)
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+    //first checks to see what has been checked
+    //calls a function which first see if that goal has already been completed on that date 
+    //adds those tasks to the database 
   }
-  //   //first checks to see what has been checked
-  //   //calls a function which first see if that goal has already been completed on that date 
-  //   //adds those tasks to the database
-  // }
+
+
+
+
+
 
 
 
@@ -263,16 +294,15 @@
     //     }
     //     return response.json(); // Parse the JSON response
     // })
-    // console.log(checkedGoals)
-  //  });
   // }
   //have access to the current date (sept 5, 2024, etc)
     //return the date as well as the checked goals to the server
     //in server.js goes through the goals and checks to see that goal has already been completed on that day
     //depending on this adds the goal to the database
 
-
-
+  window.addEventListener("load", function() {
+    document.querySelector('#saveTask').onclick=isChecked
+  });
 
 
   </script>

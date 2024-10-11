@@ -32,7 +32,7 @@ Another challege was learning how to write to the html page in javascript. This 
 ## Responsibilities
 Eleanor: Login page, SignUp page, Leaderboard page, main.html linking to get the day's current goals and user points
 
-Sophia: Calendar page
+Sophia: Added calendar - allows users to complete goals if they forgot to add it a previous day and completed those goals. Added goals based on each weekday (ex: Tuesday's only show Tuesday's goals), points for users are also added for the goals that are completed on the calendar.
 
 Ashley: Goal page, display user goals, allow for deletion, creation and modification.
 

@@ -570,11 +570,12 @@ app.get('/goalsLoad', async (req, res) => {
   if (account.length > 0) {
     const titles = account.map(goal => goal.title);
     const days = account.map(goal => goal.days);
-    const arr = [titles, days]; 
+    const id = account.map(goal => goal._id);
     res.json(
       {
         titles: titles,
-        days: days
+        days: days,
+        _id: id
       }); 
 // } else {
 //     res.json([[], []]); // Return empty arrays if no account is found
@@ -679,14 +680,6 @@ app.get("/getUserID", async (req, res) => {
 })
 
 
-// app.post('/updateGoals', async (req, res) =>)
-// {
-//   //for loop
-//   //sees if there is a goal for that day 
-//   //if yes updates accordingly
-//   //else adds to the database
-// }
-
 app.get("/determineCat", async (req, res) => {
   const goalsCollection = await client.db("test").collection("goals");
   const authorsGoals = await goalsCollection.find({author: id}).toArray();
@@ -729,10 +722,48 @@ app.get("/determineCat", async (req, res) => {
 }) 
 
 
-app.post('/updateGoals', async (req, res) => 
+app.post('/checkedGoals', async (req, res) => 
 {
-  const { goals } = req.body;
-  console.log(goals)
+  const goals = req.body.goals;
+  const ids = req.body.goalIds;
+  const date = req.body.date;
+
+  // console.log("test--------------------------");
+  // console.log("id", ids)
+  let i = 0
+  for (const goal of goals) {
+    const dbGoal = await goalsCollection.find({_id: new ObjectId(ids[i])}).toArray();
+    // console.log(res);
+    // console.log("-------")
+
+    // console.log(dbGoal)
+    let completedSection = dbGoal.completed
+    // if(!completedSection.includes(date)){
+    const res = await goalsCollection.updateOne({ _id: new ObjectId(ids[i]), completed: { $ne: date } }, {
+      $addToSet: {
+        completed: [date]
+      }
+
+      //if this then add 10 points to another thing
+    });
+    if(res.modifiedCount>0)
+    {
+      const usersCollection = await client.db("test").collection("users");
+      const account = await goalsCollection.findOne({author: id});
+      await usersCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $inc: { points: (account.points || 0) + 10 } }
+      );
+    }
+
+
+    i++
+  }
+  res.status(200)
+  
+
+  
+  //console.log(goals)
 
 })
 
