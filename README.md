@@ -41,4 +41,4 @@ Kayla: Conceptually making DB schema, drawings for pet cat, CSS styling
 Laura: Pet page. Helped Kayla with conceptual DB schema, then implemented database with Mongoose. Also wrote first draft of the README.
 
 ## Link to Video
-VIDEO LINK:
+VIDEO LINK: https://youtu.be/Gjqj5DEEUFI?si=Sq1YlmwlyqSAkk3H 
